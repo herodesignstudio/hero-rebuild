@@ -1,0 +1,7 @@
+
+RewriteEngine on
+
+RewriteCond %{HTTP_HOST} ^web.herodesignstudio.com$ [OR]
+RewriteCond %{HTTP_HOST} ^www.web.herodesignstudio.com$
+RewriteRule ^/?$ "http\:\/\/herodesignstudio\.worldsecuresystems\.com\/" [R=301,L]
+

@@ -1,0 +1,225 @@
+@charset "UTF-8";
+/* CSS Document */
+
+body {
+	margin:0;
+	padding:0;
+	background-color: #27411c;
+}
+h3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	color: #FFFFFF;
+	margin-top: 0px;
+	margin-bottom: 8px;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	border-bottom-color: #FFFFFF;
+	padding-bottom: 3px;
+	letter-spacing: 1px;
+}
+.credits {
+	width: 165px;
+	float: left;
+	position: relative;
+	margin-right: 50px;
+	margin-bottom: 25px;
+}
+h1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 21px;
+	color: #d9c713;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 25px;
+	margin-left: 0px;
+}
+.center {
+	margin-right: auto;
+	margin-left: auto;
+	position: relative;
+	width: 860px;
+}
+.credits p {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color: #FFFFFF;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 15px;
+	margin-left: 0px;
+}
+img {
+	border:0;
+}
+#container {
+	height: 690px;
+	width: 100%;
+	position: relative;
+	margin-top:30px;
+}
+#header {
+	position: relative;
+	height: 127px;
+	width: 100%;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	border-bottom-color: #FFFFFF;
+	border-top-width: 2px;
+	border-top-style: solid;
+	border-top-color: #FFFFFF;
+	background-image: url(images/header.jpg);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+#content_container {
+	position: relative;
+	height: 462px;
+	width: 1000px;
+	margin-right: auto;
+	margin-left: auto;
+}
+#content {
+	clear: none;
+	float: right;
+	height: 460px;
+	position: relative;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 3px;
+	padding-top: 1px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+}
+#index_content {
+	padding: 0px;
+	height: 461px;
+	position: relative;
+	margin-top: 0px;
+	margin-right: 1px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	width: 1000px;
+	background-image: url(images/landing_pg.jpg);
+}
+#credits_content {
+	height: 461px;
+	position: relative;
+	margin-top: 0px;
+	margin-right: 1px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	width: 1000px;
+	padding-top: 35px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+}
+
+#nav {
+	clear: none;
+	float: left;
+	width: 130px;
+	position: relative;
+	margin-top: 8px;
+	margin-right: 5px;
+	margin-left: 0px;
+	padding-top: 0px;
+	padding-right: 10px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: #FFFFFF;
+	margin-bottom: 0px;
+	z-index: 0;
+}
+#footer {
+	border-top-width: 2px;
+	border-bottom-width: 2px;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-top-color: #FFFFFF;
+	border-bottom-color: #FFFFFF;
+	position: relative;
+	height: 105px;
+	width: 100%;
+	background-image: url(images/footer.jpg);
+	background-repeat: no-repeat;
+	background-position: center;
+	z-index: 9;
+}
+#nav  ul {
+	list-style-type: square;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #FFFFFF;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 12px;
+	text-align: left;
+	font-size: 9px;
+	letter-spacing: 0.125em;
+	padding: 0px;
+	line-height: 12px;
+	font-weight: normal;
+}
+#nav li {
+	margin-top: 5px;
+}
+a:link {color: #FFFFFF; text-decoration:none;}     /* unvisited link */
+a:visited {color: #FFFFFF; text-decoration:none;}  /* visited link */
+a:hover {color: #FFCC00; text-decoration:none;}   /* mouse over link */
+a:active {color: #FFCC00; text-decoration:none; outline:none; border:0; border-width:0; border-style:none;}   /* selected link */
+a {outline:none;}
+
+#view_calls {
+	position: absolute;
+	top: 350px;
+	left: 423px;
+}
+#ndac_logo {
+	position: absolute;
+	right: 45px;
+	top: 40px;
+}
+#credits {
+	position: absolute;
+	left: 45px;
+	top: 35px;
+}
+#center {
+	position: relative;
+	width: 1000px;
+	margin-right: auto;
+	margin-left: auto;
+}
+#center_top {
+	position: relative;
+	width: 1000px;
+	margin-right: auto;
+	margin-left: auto;
+}
+#home {
+}
+#results {
+	position: absolute;
+	right: 0px;
+	top: 70px;
+}
+#home_credits {
+	position: absolute;
+	top: 70px;
+	left: 35px;
+}
+#register {
+	position: absolute;
+	top: 70px;
+}
+.home {
+	position: absolute;
+	top: 7px;
+	left: 260px;
+}

@@ -1,0 +1,71 @@
+@charset "UTF-8";
+/* CSS Document */
+
+#menu {
+	position: fixed;
+	width: 110px;
+	top: 20px;
+	background-color: #ffffff;
+	left: 0px;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 10px;
+	padding-left: 10px;
+	padding-top: 5px;
+	padding-bottom: 8px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-top-color: #999;
+	border-right-color: #999;
+	border-bottom-color: #999;
+    filter:alpha(opacity=90);
+    -moz-opacity:0.9;
+    -khtml-opacity: 0.9;
+    opacity: 0.9;
+	
+}
+ul {
+	margin:0;
+	padding-left:10px;
+	margin-bottom:10px;
+}
+li {
+	padding:0px;
+	margin:5px;
+}
+#show {
+	position: fixed;
+	width: 35px;
+	top: 5px;
+	background-color: #eeeeee;
+	left: 0px;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12px;
+	padding-left: 10px;
+	padding-top: 5px;
+	padding-bottom: 8px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-top-color: #999;
+	border-right-color: #999;
+	border-bottom-color: #999;
+	visibility: hidden;
+	filter:alpha(opacity=50);
+    -moz-opacity:0.5;
+    -khtml-opacity: 0.5;
+    opacity: 0.5;
+
+}
+.new a:link, .new a:visited {
+	color:#900;
+}
+.new a:hover, .new a:active {
+	color:#900;
+}
