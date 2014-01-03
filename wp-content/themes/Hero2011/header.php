@@ -79,7 +79,7 @@ function MM_swapImage() { //v3.0
     <!--Begin Header-->
   <div class="header">
     	
-        <a href="http://www.herodesignstudio.com/"><img class="logo" src="<?php bloginfo('stylesheet_directory'); ?>/images/hero-design-studio.gif" height="72" width="210" alt="Hero Design Studio" title="Hero Design Studio" /></a>
+        <a href="http://localhost:8888/herodesignstudio.com"><img class="logo" src="<?php bloginfo('stylesheet_directory'); ?>/images/hero-design-studio.gif" height="72" width="210" alt="Hero Design Studio" title="Hero Design Studio" /></a>
         
 		<ul class="nav">
         <li><a href="http://localhost:8888/herodesignstudio.com/our-work">Work</a></li>

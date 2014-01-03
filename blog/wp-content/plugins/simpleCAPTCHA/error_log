@@ -1,0 +1,3 @@
+[18-Jun-2013 05:32:36 US/Central] PHP Deprecated:  Function session_unregister() is deprecated in /home/herodesi/public_html/blog/wp-content/plugins/simpleCAPTCHA/gdimg.php on line 33
+[25-Aug-2013 01:54:51 America/Chicago] PHP Deprecated:  Function session_unregister() is deprecated in /home/herodesi/public_html/blog/wp-content/plugins/simpleCAPTCHA/gdimg.php on line 33
+[30-Oct-2013 02:37:24 America/Chicago] PHP Deprecated:  Function session_unregister() is deprecated in /home/herodesi/public_html/blog/wp-content/plugins/simpleCAPTCHA/gdimg.php on line 33
