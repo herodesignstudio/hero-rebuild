@@ -25,12 +25,12 @@ class HSM_Plugin extends HSM_Module
 {
 	var $plugins = null;
 	var $admin   = true;
-	
+
 	function HSM_Plugin ($options = array ()) {
 		if (isset ($options['admin']))
 			$this->admin = $options['admin'];
 	}
-	
+
 	function run () {
 		$pages = get_option ('headspace_page_plugins');
 
@@ -48,7 +48,7 @@ class HSM_Plugin extends HSM_Module
 		else if ($this->admin && is_admin () && !empty ($pages))
 			add_filter ('init', array (&$this, 'init'));
 	}
-	
+
 	function load ($meta) {
 		if (isset ($meta['plugins'])) {
 			$this->plugins = $meta['plugins'];
@@ -56,14 +56,14 @@ class HSM_Plugin extends HSM_Module
 				$this->plugins = array ($this->plugins);
 		}
 	}
-	
+
 	function init ($current) {
 		$plugindir = ABSPATH.PLUGINDIR;
 		if (defined ('WP_PLUGIN_DIR'))
 			$plugindir = WP_PLUGIN_DIR;
 
 		$plugindir = rtrim ($plugindir, '/');
-		
+
 		if (is_admin ()) {
 			$pages = get_option ('headspace_page_plugins');
  			foreach ($pages AS $page => $plugins) {
@@ -83,23 +83,23 @@ class HSM_Plugin extends HSM_Module
 			}
 		}
 	}
-	
+
 	function name () {
 		return __ ('Page-specific Plugins', 'headspace');
 	}
-	
+
 	function description () {
 		return __ ('Allows disabled plugins to be enabled on specific pages', 'headspace');
 	}
-	
+
 	function is_restricted ($area) {
 		if (current_user_can ('administrator') && function_exists ('get_plugins') && $area == 'page')
 			return false;
 		return true;
 	}
-	
+
 	function has_config () { return true; }
-	
+
 	function edit_options () {
 		?>
 		<tr>
@@ -111,15 +111,15 @@ class HSM_Plugin extends HSM_Module
 		</tr>
 		<?php
 	}
-	
+
 	function save_options ($data) {
 		return array ('admin' => isset ($data['admin']) ? true : false);
 	}
-	
+
 	function edit ($width, $area) {
 		global $headspace2;
 		$headspace = HeadSpace2::get ();
-		
+
 		$plugins = get_plugins();
 		$current = array_filter (get_option ('active_plugins'));
 
@@ -137,13 +137,13 @@ class HSM_Plugin extends HSM_Module
 				<option value="<?php echo $name ?>"><?php echo $details['Name']; ?></option>
 			<?php endforeach; ?>
 			</select>
-			<a href="#" onclick="return add_plugin ()"><img valign="bottom" src="<?php echo $headspace2->url (); ?>/images/add.png" alt="add"/></a>
+			<a href="#" onclick="return add_plugin ()"><img valign="bottom" src="<?php echo plugins_url( '/images/add.png', $headspace2->base_url() ); ?>" alt="add"/></a>
 
 			<ul id="headspace_plugins">
 				<?php if (!empty ($this->plugins)) : ?>
 					<?php foreach ($this->plugins AS $name) : ?>
 						<li>
-							<div class="delete"><a href="#" onclick="return delete_plugin(this);"><img src="<?php echo $headspace->url () ?>/images/delete.png" alt="delete" width="16" height="16"/></a></div>
+							<div class="delete"><a href="#" onclick="return delete_plugin(this);"><img src="<?php echo plugins_url( '/images/delete.png', $headspace2->base_url() ); ?>" alt="delete" width="16" height="16"/></a></div>
 							<?php echo $plugins[$name]['Name'] ?>
 			  			<input type='hidden' name='headspace_plugins[]' value='<?php echo $name ?>'/>
 						</li>
@@ -154,39 +154,39 @@ class HSM_Plugin extends HSM_Module
 	</tr>
 <?php
 	}
-	
+
 	function save ($data) {
 		// Go through and re-create all page URLs
 		$url = $this->link ($_POST['post_ID']);
-		
+
 		$pages = get_option ('headspace_page_plugins');
 		if ($data['headspace_plugins'] != '0') {
 			global $wpdb;
-			
+
 			$posts = $wpdb->get_results ("SELECT post_id,meta_value FROM {$wpdb->postmeta} WHERE meta_key='_headspace_plugins'");
 			if ($posts) {
 				$pages = array ();
-				
+
 				foreach ($posts AS $post)
 					$pages[$this->link ($post->post_id)][] = $post->meta_value;
-					
+
 				$pages[$url] = $data['headspace_plugins'];
 				update_option ('headspace_page_plugins', $pages);
 			}
-			
+
 			return array ('plugins' => $data['headspace_plugins']);
 		}
 		else if (isset ($pages[$url])) {
 			unset ($url);
 			update_option ('headspace_page_plugins', $pages);
 		}
-		
+
 		return array ();
 	}
-	
+
 	function link ($id) {
 		$url = get_permalink ($id);
-		$url = str_replace (get_bloginfo ('home'), '', $url);
+		$url = str_replace (get_bloginfo ('url'), '', $url);
 		return $url;
 	}
 
@@ -194,5 +194,3 @@ class HSM_Plugin extends HSM_Module
 		return basename (__FILE__);
 	}
 }
-
-?>

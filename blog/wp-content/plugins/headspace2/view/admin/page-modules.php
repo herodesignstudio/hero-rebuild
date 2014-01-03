@@ -1,7 +1,6 @@
 <?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?>
 
 <div class="wrap">
-	<?php $this->render_admin ('annoy'); ?>
 	<?php screen_icon(); ?>
 	
 	<h2><?php printf (__ ('%s | Page Modules', 'headspace'), HEADSPACE_MENU); ?></h2>

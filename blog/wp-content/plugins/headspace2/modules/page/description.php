@@ -25,42 +25,42 @@ class HSM_Description extends HSM_Module
 {
 	var $description = null;
 	var $max_length  = 150;
-	
+
 	function HSM_Description ($options = array ()) {
 		if (isset ($options['length']))
 			$this->max_length = $options['length'];
 	}
-	
+
 	function load ($meta) {
 		// Extract settings from $meta and $options
 		if (isset ($meta['description']))
 			$this->description = $meta['description'];
 	}
-	
+
 	function head () {
 		if (strlen ($this->description) > 0) {
 			if (function_exists ('mb_substr'))
 				$description = mb_substr (strip_tags ($this->description), 0, $this->max_length);
 			else
 				$description = substr (strip_tags ($this->description), 0, $this->max_length);
-				
+
 			$description = trim (preg_replace ("/[\r\n ]+/", ' ', $description));
-			$description = HeadSpace_Plugin::specialchars ($description);
+			$description = esc_attr($description);
 
 		  echo '<meta name="description" content="'.$description.'" />'."\r\n";
 		}
 	}
-	
+
 	function name () {
 		return __ ('Page description', 'headspace');
 	}
-	
+
 	function description () {
 		return __ ('Allows a short description about the page that is used by search engines', 'headspace');
 	}
-	
+
 	function has_config () { return true; }
-	
+
 	function edit_options () {
 		?>
 		<tr>
@@ -72,11 +72,11 @@ class HSM_Description extends HSM_Module
 		</tr>
 		<?php
 	}
-	
+
 	function save_options ($data) {
 		return array ('length' => intval ($data['lengthx']));
 	}
-	
+
 	function edit ($width, $area) {
 		$id = time();
 	?>
@@ -91,7 +91,7 @@ class HSM_Description extends HSM_Module
 			<?php endif; ?>
 		</th>
 		<td>
-			<textarea rows="2" name="headspace_description" style="width: 95%" id="desc_<?php echo $id; ?>"><?php echo HeadSpace_Plugin::specialchars ($this->description) ?></textarea><br/>
+			<textarea rows="2" name="headspace_description" style="width: 95%" id="desc_<?php echo $id; ?>"><?php echo esc_html($this->description) ?></textarea><br/>
 
 			<script type="text/javascript" charset="utf-8">
 				jQuery('#desc_<?php echo $id ?>').Counter( { limit: <?php echo $this->max_length; ?>, remaining: '<?php echo esc_js( __( 'remaining', 'headspace' ) )?>' } );
@@ -101,17 +101,17 @@ class HSM_Description extends HSM_Module
 	</tr>
 	<?php
 	}
-	
+
 	function can_quick_edit () { return true; }
-	
+
 	function quick_view () {
 		echo $this->description;
 	}
-	
+
 	function save ($data, $area) {
 		return array ('description' => trim ($data['headspace_description']));
 	}
-	
+
 	function file () {
 		return basename (__FILE__);
 	}

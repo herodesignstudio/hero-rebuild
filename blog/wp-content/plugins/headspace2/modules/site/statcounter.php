@@ -5,7 +5,6 @@
  *
  * @package HeadSpace
  * @author John Godley
- * @copyright Copyright (C) John Godley
  **/
 
 /*
@@ -27,36 +26,36 @@ class HSS_StatCounter extends HS_SiteModule
 	var $partition  = 0;
 	var $security   = '';
 	var $role       = 'everyone';
-	
+
 	var $trackable  = null;
-	
+
 	function name ()
 	{
 		return __ ('StatCounter', 'headspace');
 	}
-	
+
 	function description ()
 	{
 		return __ ('Adds StatCounter tracking code to all pages', 'headspace');
 	}
-	
+
 	function run ()
 	{
 		add_action ('wp_footer', array (&$this, 'wp_footer'));
 	}
-	
+
 	function is_trackable ()
 	{
 		if ($this->is_trackable !== null)
 			return $this->is_trackable;
-			
+
 		if (is_user_logged_in () && $this->role != 'everyone')
 		{
 			$user = wp_get_current_user ();
-			
+
 			global $wp_roles;
 			$caps = $wp_roles->get_role ($this->role);
-			
+
 			if ($caps)
 			{
 				// Calculate the highest level of the user and the role
@@ -66,7 +65,7 @@ class HSS_StatCounter extends HS_SiteModule
 					if (isset ($caps->capabilities['level_'.$x]))
 						break;
 				}
-			
+
 				$role_level = $x;
 
 				for ($x = 10; $x >= 0; $x--)
@@ -74,9 +73,9 @@ class HSS_StatCounter extends HS_SiteModule
 					if (isset ($user->allcaps['level_'.$x]))
 						break;
 				}
-			
+
 				$user_level = $x;
-			
+
 				// Quit if the user is greater level than the role
 				if ($user_level > $role_level)
 				{
@@ -85,28 +84,28 @@ class HSS_StatCounter extends HS_SiteModule
 				}
 			}
 		}
-		
+
 		$this->is_trackable = true;
 		return $this->is_trackable;
 	}
-	
+
 	function wp_footer ()
 	{
 		if ($this->project > 0 && $this->partition > 0 && $this->security && $this->is_trackable ())
 		{
 			?>
 			<script type="text/javascript">
-				var sc_project     = <?php echo $this->project ?>; 
-				var sc_invisible   = 1; 
-				var sc_partition   = <?php echo $this->partition ?>; 
-				var sc_security    = "<?php echo $this->security; ?>"; 
-				var sc_remove_link = 1; 
+				var sc_project     = <?php echo esc_js( $this->project ) ?>;
+				var sc_invisible   = 1;
+				var sc_partition   = <?php echo esc_js( $this->partition ) ?>;
+				var sc_security    = "<?php echo esc_js( $this->security ); ?>";
+				var sc_remove_link = 1;
 			</script>
 			<script type="text/javascript" src="http://www.statcounter.com/counter/counter_xhtml.js"></script>
 			<?php
 		}
 	}
-	
+
 	function load ($data)
 	{
 		if (isset ($data['project']))
@@ -114,60 +113,60 @@ class HSS_StatCounter extends HS_SiteModule
 
 		if (isset ($data['partition']))
 			$this->partition = $data['partition'];
-			
+
 		if (isset ($data['security']))
 			$this->security = $data['security'];
-			
+
 		if (isset ($data['role']))
 			$this->role = $data['role'];
 	}
-	
+
 	function has_config () { return true; }
-	
+
 	function save_options ($data)
 	{
 		return array ('project' => intval ($data['project']), 'partition' => intval ($data['partition']), 'security' => $data['security'], 'role' => $data['role']);
 	}
-	
+
 	function edit ()
 	{
 	?>
 	<tr>
 		<th width="150"><?php _e ('Project ID', 'headspace'); ?>:</th>
 		<td>
-			<input type="text" name="project" value="<?php echo $this->project; ?>"/>
+			<input type="text" name="project" value="<?php echo esc_attr( $this->project ); ?>"/>
 		</td>
 	</tr>
 	<tr>
 		<th width="150"><?php _e ('Partition ID', 'headspace'); ?>:</th>
 		<td>
-			<input type="text" name="partition" value="<?php echo $this->partition; ?>"/>
+			<input type="text" name="partition" value="<?php echo esc_attr( $this->partition ); ?>"/>
 		</td>
 	</tr>
 	<tr>
 		<th width="150"><?php _e ('Security ID', 'headspace'); ?>:</th>
 		<td>
-			<input type="text" name="security" value="<?php echo htmlspecialchars ($this->security); ?>"/>
+			<input type="text" name="security" value="<?php echo esc_attr ($this->security); ?>"/>
 		</td>
 	</tr>
-	
+
 	<tr>
 		<th><?php _e ('Who to track', 'headspace'); ?>:</th>
 		<td>
 			<select name="role">
 				<option value="everyone"><?php _e ('Everyone', 'headspace'); ?></option>
 					<?php global $wp_roles; foreach ($wp_roles->role_names as $key => $rolename) : ?>
-						<option value="<?php echo $key ?>"<?php if ($this->role == $key) echo ' selected="selected"'; ?>><?php echo $rolename ?></option>
+						<option value="<?php echo $key ?>"<?php if ($this->role == $key) echo ' selected="selected"'; ?>><?php echo esc_html( $rolename ) ?></option>
 					<?php endforeach; ?>
 				</select>
 			</select>
-			
+
 			<span class="sub"><?php _e ('Users of the specified role or less will be tracked', 'headspace'); ?></span>
 		</td>
 	</tr>
 	<?php
 	}
-	
+
 	function file ()
 	{
 		return basename (__FILE__);

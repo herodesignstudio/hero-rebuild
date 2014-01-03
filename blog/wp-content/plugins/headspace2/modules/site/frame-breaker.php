@@ -26,17 +26,17 @@ class HSS_FrameBreaker extends HS_SiteModule
 	var $wpautop     = false;
 	var $clickable   = true;
 	var $wptexturize = false;
-	
+
 	function name ()
 	{
 		return __ ('Frame Breaker', 'headspace');
 	}
-	
+
 	function description ()
 	{
 		return __ ('Stops your site being loaded in a frame.', 'headspace');
 	}
-	
+
 	function head ()
 	{
 		if ($_SERVER['HTTP_REFERER'] != get_bloginfo ('wpurl').'/wp-admin/themes.php')
@@ -51,11 +51,10 @@ class HSS_FrameBreaker extends HS_SiteModule
 			<?php
 		}
 	}
-	
+
 	function file ()
 	{
 		return basename (__FILE__);
 	}
 }
 
-?>

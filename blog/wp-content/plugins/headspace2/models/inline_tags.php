@@ -5,7 +5,6 @@
  *
  * @package HeadSpace
  * @author John Godley
- * @copyright Copyright (C) John Godley
  **/
 
 /*
@@ -28,9 +27,9 @@ class HS_InlineTags
 			return $value;
 
 		global $wp_query, $wp_locale;
-			
+
 		$replace_with = '';
-		
+
 		// We can only replace inline post tags when given a post
 		if (is_object ($post)) {
 			$userData = get_userdata ($post->post_author);
@@ -45,7 +44,7 @@ class HS_InlineTags
 					if ($items) {
 						foreach ($items AS $tag)
 							$tags[] = $tag->name;
-						
+
 						$tags = implode (', ', $tags);
 					}
 				}
@@ -59,7 +58,7 @@ class HS_InlineTags
 				$date = get_the_time('Y');
 			else
 				$date = $post->post_date;
-			
+
 			$replace_with = array
 			(
 				$date,
@@ -70,7 +69,7 @@ class HS_InlineTags
 			  $post->post_author,
 				$tags,
 				$_SERVER['REQUEST_URI']
-			);		
+			);
 		}
 		else if (is_author ()) {
 			global $posts;
@@ -91,16 +90,16 @@ class HS_InlineTags
 				$my_day   = intval(substr($m, 6, 2));
 				$date     = "$my_year" . ($my_month ? "$sep $my_month" : "") . ($my_day ? "$sep $my_day" : "");
 			}
-		
+
 			if (!empty ($year)) {
 				if ( !empty($monthnum) )
 					$date .= " $sep " . $wp_locale->get_month($monthnum);
 				if ( !empty($day) )
 					$date .= " $sep " . zeroise($day, 2);
-					
+
 				$date .= ' '.$year;
 			}
-			
+
 			$replace_with = array
 			(
 				$date,
@@ -127,7 +126,7 @@ class HS_InlineTags
 			'%%tag%%',
 			'%%url%%'
 		);
-		
+
 		// Replace post values
 		$value = str_replace ($search_for, $replace_with, $value);
 
@@ -141,12 +140,12 @@ class HS_InlineTags
 		$headspace2->ugly_hack = true;
 		$value = str_replace ('%%sitename%%', get_bloginfo ('blogname'), $value);
 		$headspace2->ugly_hack = false;
-		
+
 		if (is_object ($wp_locale))
 			$value = str_replace ('%%currentmonth%%', $wp_locale->get_month(date ('n')), $value);
 		else
 			$value = str_replace ('%%currentmonth%%', date ('F'), $value);
-		
+
 		// These need extra work so we only do it if necessary
 		if (strpos ($value, '%%excerpt%%') !== false)
 			$value = str_replace ('%%excerpt%%', HS_InlineTags::get_excerpt ($post, true), $value);
@@ -159,7 +158,7 @@ class HS_InlineTags
 
 		if (strpos ($value, '%%category_description%%') !== false)
 			$value = str_replace ('%%category_description%%', HS_InlineTags::get_category_description ($post), $value);
-			
+
 		if (strpos ($value, '%%tag_description%%') !== false)
 			$value = str_replace ('%%tag_description%%', HS_InlineTags::get_tag_description ($post), $value);
 
@@ -177,27 +176,27 @@ class HS_InlineTags
 
 		if (strpos ($value, '%%pagetotal%%') !== false)
 			$value = str_replace ('%%pagetotal%%', HS_InlineTags::get_page ($post, 'total'), $value);
-			
+
 		if (strpos ($value, '%%caption%%') !== false)
 			$value = str_replace ('%%caption%%', $post->post_excerpt, $value);
 
 		return $value;
 	}
-	
+
 	/**
 	 * Return the current category description
 	 *
 	 * @return string
 	 **/
-	
+
 	function get_category_description($post) {
 		$desc = category_description ();
 		if (is_object ($desc))
 			return '';
-		
+
 		return strip_tags ($desc);
 	}
-	
+
 	/**
 	 * Return the current category description
 	 *
@@ -245,7 +244,7 @@ class HS_InlineTags
                }
                return '';
        }
-       
+
         /**
         * Return the current taxonomy term title        *
         * @return string
@@ -269,13 +268,13 @@ class HS_InlineTags
        }
 
 
-	
+
 	/**
 	 * Return the current categories
 	 *
 	 * @return string
 	 **/
-	
+
 	function get_category($post) {
 		// Get data from the post
 		if (is_single ()) {
@@ -283,24 +282,24 @@ class HS_InlineTags
 			if (count ($cats) > 0) {
 			  foreach ($cats AS $cat)
 					$category[] = $cat->cat_name;
-			
+
 			  $category = implode (', ', $category);
 			}
-		
+
 			return $category;
 		}
 		else if (is_archive ())
 			return single_cat_title ('', false);
 		return '';
 	}
-	
-	
+
+
 	/**
 	 * Return the current post excerpt
 	 *
 	 * @return string
 	 **/
-	
+
 	function get_excerpt($post, $auto = true) {
 		$excerpt = '';
 		if ( is_object( $post ) ) {
@@ -308,16 +307,16 @@ class HS_InlineTags
 				$excerpt = trim (str_replace ('[...]', '', $post->post_excerpt));
 			else if ($auto) {
 				$hs      = HeadSpace2::get ();
-				$options = $hs->get_options ();		
+				$options = $hs->get_options ();
 				$excerpt = $post->post_content;
-			
+
 				if (isset ($options['excerpt']) && $options['excerpt']) {
 					$hs->disabled = true;
 					$excerpt = apply_filters ('the_content', $post->post_content);
 					$hs->disabled = false;
 				}
-			
-				$excerpt_length = apply_filters( 'excerpt_length', 1000 );	
+
+				$excerpt_length = apply_filters( 'excerpt_length', 1000 );
 				$excerpt = substr( strip_shortcodes( $excerpt ), 0, $excerpt_length );
 			}
 		}
@@ -325,27 +324,27 @@ class HS_InlineTags
 		$excerpt = strip_tags ($excerpt);
 		return $excerpt;
 	}
-	
-	
+
+
 	/**
 	 * Return the page position
 	 *
 	 * @return string
 	 **/
-	
+
 	function get_page($post, $type = 'all') {
 		global $wp_query;
-		
+
 		if ($wp_query->max_num_pages > 1) {
 			$paged = get_query_var ('paged');
 			$max   = $wp_query->max_num_pages;
-			
+
 			if ($paged == 0)
 				$paged = 1;
-				
+
 			if ($paged == 1)
 				return '';
-				
+
 			if ($type == 'all')
 				return sprintf ( __( 'page %d of %d', 'headspace' ), $paged, $max );
 			else if ($type == 'number')
@@ -355,5 +354,3 @@ class HS_InlineTags
 		}
 	}
 }
-
-?>

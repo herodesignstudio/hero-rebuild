@@ -24,5 +24,3 @@ For full license details see license.txt
 // Various hacks around bugs in other plugins
 if (strpos ($_SERVER['REQUEST_URI'], 'headspace.php') !== false)
 	remove_filter ('admin_head', 'ps_imagemanager_admin_head');      // Hack so still works with ImageManager
-
-?>

@@ -28,17 +28,17 @@ class HSS_FirstTimeVisitor extends HS_SiteModule
 	var $bots     = true;
 	var $position = 'content_before';
 	var $visited  = false;
-	
+
 	function name ()
 	{
 		return __ ('First Time Visitor', 'headspace');
 	}
-	
+
 	function description ()
 	{
 		return __ ('Display a message for first time visitors (based upon idea from Seth Godin)', 'headspace');
 	}
-	
+
 	function run ()
 	{
 		if (!is_admin () && !is_404 () && !is_search () && $this->is_robot () == false)
@@ -56,7 +56,7 @@ class HSS_FirstTimeVisitor extends HS_SiteModule
 			}
 		}
 	}
-	
+
 	function is_robot ()
 	{
 		if ($this->bots)
@@ -70,7 +70,7 @@ class HSS_FirstTimeVisitor extends HS_SiteModule
 
 		return false;
 	}
-	
+
 	function content ($text)
 	{
 		$hs = HeadSpace2::get ();
@@ -87,26 +87,26 @@ class HSS_FirstTimeVisitor extends HS_SiteModule
 
 		return $text;
 	}
-	
+
 	function load ($data)
 	{
-		$this->message = sprintf (__ ('<p>As a new visitor you may want to subscribe to my <a href="%s/feed/">RSS</a> feed.</p>', 'headspace'), get_bloginfo ('home'));
-		
+		$this->message = sprintf (__ ('<p>As a new visitor you may want to subscribe to my <a href="%s/feed/">RSS</a> feed.</p>', 'headspace'), get_bloginfo ('url'));
+
 		if (isset ($data['message']))
 			$this->message = $data['message'];
-			
+
 		if (isset ($data['repeat']))
 			$this->repeat = $data['repeat'];
-			
+
 		if (isset ($data['position']))
 			$this->position = $data['position'];
-			
+
 		if (isset ($data['bots']))
 			$this->bots = $data['bots'];
 	}
-	
+
 	function has_config () { return true; }
-	
+
 	function save_options ($data)
 	{
 		return array(
@@ -116,19 +116,19 @@ class HSS_FirstTimeVisitor extends HS_SiteModule
 			'bots' => isset ($data['bots']) ? true : false
 		);
 	}
-	
+
 	function edit ()
 	{
 	?>
 	<tr>
 		<th width="150"><?php _e ('Message to display', 'headspace'); ?>:</th>
 		<td>
-			<textarea rows="3" cols="40" name="message"><?php echo htmlspecialchars ($this->message); ?></textarea><br/>
+			<textarea rows="3" cols="40" name="message"><?php echo esc_html ($this->message); ?></textarea><br/>
 		</td>
 	</tr>
 	<tr>
 		<th><?php _e ('Repeat', 'headspace'); ?>:</th>
-		<td><input type="text" name="repeat" value="<?php echo $this->repeat ?>"/> <span class="sub"><?php _e ('Enter 0 for always', 'headspace'); ?></span></td>
+		<td><input type="text" name="repeat" value="<?php echo esc_attr( $this->repeat ) ?>"/> <span class="sub"><?php _e ('Enter 0 for always', 'headspace'); ?></span></td>
 	</tr>
 	<tr>
 		<th><?php _e ('Display position', 'headspace'); ?>:</th>
@@ -145,7 +145,7 @@ class HSS_FirstTimeVisitor extends HS_SiteModule
 	</tr>
 	<?php
 	}
-	
+
 	function file ()
 	{
 		return basename (__FILE__);

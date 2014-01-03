@@ -25,12 +25,12 @@ class HSM_Stylesheet extends HSM_Module
 {
 	var $stylesheets = array ();
 	var $disable     = false;
-	
+
 	function HSM_Stylesheet ($options = array ()) {
 		if (isset ($options['disable']))
 			$this->disable = $options['disable'];
 	}
-	
+
 	function load ($meta) {
 		// Extract settings from $meta and $options
 		if (isset ($meta['stylesheets'])) {
@@ -39,29 +39,29 @@ class HSM_Stylesheet extends HSM_Module
 				$this->stylesheets = array ($this->stylesheets);
 		}
 	}
-	
+
 	function init () {
 	}
-	
+
 	function head () {
 		if (!empty ($this->stylesheets) && $this->disable == false) {
 			foreach ($this->stylesheets AS $style)
-				echo '<link rel="stylesheet" href="'.$style.'" type="text/css" />'."\r\n";
+				echo '<link rel="stylesheet" href="'.esc_attr( $style ).'" type="text/css" />'."\r\n";
 		}
 	}
-	
+
 	function name () {
 		return __ ('Stylesheets', 'headspace');
 	}
-	
+
 	function description () {
 		return __ ('Allows CSS stylesheets to be added to a page', 'headspace');
 	}
-	
+
 	function edit ($width, $area) {
 		global $headspace2;
 		$id = time ();
-		
+
 		if (count ($this->stylesheets) == 0)
 			$this->stylesheets = array ('');
 ?>
@@ -70,10 +70,10 @@ class HSM_Stylesheet extends HSM_Module
 	<td id="headspace_styles_<?php echo $id ?>">
 		<?php if (count ($this->stylesheets) > 0) : ?>
 			<?php foreach ($this->stylesheets AS $pos => $sheet) : ?>
-			<input type="text" name="headspace_style[]" value="<?php echo htmlspecialchars ($sheet) ?>" style="width: 90%"/>
+			<input type="text" name="headspace_style[]" value="<?php echo esc_attr ($sheet) ?>" style="width: 90%"/>
 			<?php if ($pos == 0) : ?>
 			<a href="#" onclick="jQuery('#headspace_styles_<?php echo $id ?>').append ('<input type=&quot;text&quot; name=&quot;headspace_style[]&quot; style=&quot;width: 90%&quot;/>'); return false">
-				<img src="<?php echo $headspace2->url (); ?>/images/add.png" alt="add"/>
+				<img src="<?php echo plugins_url( '/images/add.png', $headspace2->base_url() ); ?>" alt="add"/>
 			</a>
 			<?php endif; ?>
 			<?php endforeach; ?>
@@ -82,17 +82,17 @@ class HSM_Stylesheet extends HSM_Module
 </tr>
 <?php
 	}
-	
+
 	function save ($data, $area) {
 		if (!is_array ($data['headspace_style']))
 			$data['headspace_style'] = array ();
 		return array ('stylesheets' => array_filter ($data['headspace_style']));
 	}
-	
+
 	function file () {
 		return basename (__FILE__);
 	}
-	
+
 	function has_config () { return true; }
 
 	function edit_options () {
@@ -105,9 +105,8 @@ class HSM_Stylesheet extends HSM_Module
 			</tr>
 		<?php
 	}
-	
+
 	function save_options ($data) {
 		return array ('disable' => isset ($data['disable']) ? true : false);
 	}
 }
-?>

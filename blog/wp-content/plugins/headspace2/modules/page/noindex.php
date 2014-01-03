@@ -28,7 +28,7 @@ class HSM_NoIndex extends HSM_Module
 	var $noarchive = false;
 	var $noodp = false;
 	var $noydir = false;
-	
+
 	function names () {
 		return array
 		(
@@ -39,7 +39,7 @@ class HSM_NoIndex extends HSM_Module
 			'noydir'    => __ ('No-Yahoo Dir', 'headspace')
 		);
 	}
-	
+
 	function load ($meta) {
 		// Extract settings from $meta and $options
 		foreach ($this->names () AS $name => $title) {
@@ -47,52 +47,52 @@ class HSM_NoIndex extends HSM_Module
 				$this->$name = ($meta[$name] == 'robots') ? true : false;
 		}
 	}
-	
+
 	function can_quick_edit () {
 		return true;
 	}
-	
+
 	function quick_view () {
 		$options = array ();
-		
+
 		foreach ($this->names () AS $name => $title) {
 			if ($this->$name === true)
 				$options[] = $name;
 		}
-		
+
 		if (count ($options) > 0)
 			echo implode (', ', $options);
 	}
-	
+
 	function head () {
 		$options = array ();
-		
+
 		foreach ($this->names () AS $name => $title) {
 			if ($this->$name === true)
 				$options[] = $name;
 		}
-		
+
 		if (count ($options) == 1 && $this->noindex)
 			$options[] = 'follow';
-		
+
 		if (count ($options) > 0)
 			echo '<meta name="robots" content="'.implode (',', $options).'"/>'."\r\n";
 	}
-	
+
 	function name () {
 		return __ ('Meta-Robots', 'headspace');
 	}
-	
+
 	function description () {
 		return __ ('Allows various meta-robot options to be set to prevent search engines and robots from indexing or following pages', 'headspace');
 	}
-	
+
 	function is_restricted ($area) {
 		if (current_user_can ('administrator'))
 			return false;
 		return true;
 	}
-	
+
 	function edit ($width, $area) {
 ?>
 <tr>
@@ -101,22 +101,22 @@ class HSM_NoIndex extends HSM_Module
 		<?php foreach ($this->names () AS $name => $title) : ?>
 			<label style="line-height: 1.8">
 				<input type="checkbox" name="headspace_<?php echo $name; ?>"<?php if ($this->$name) echo ' checked="checked"' ?>/>
-				<?php echo $title ?> 
+				<?php echo $title ?>
 			</label>&nbsp;
 		<?php endforeach; ?>
 	</td>
 </tr>
 <?php
 	}
-	
+
 	function save ($data, $area) {
 		$save = array ();
 		foreach ($this->names () AS $name => $title)
 			$save[$name] = isset ($data['headspace_'.$name]) ? 'robots' : '';
-			
+
 		return $save;
 	}
-	
+
 	function file () {
 		return basename (__FILE__);
 	}

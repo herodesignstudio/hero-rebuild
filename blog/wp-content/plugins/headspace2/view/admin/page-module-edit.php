@@ -12,7 +12,7 @@
 				<input class="button-secondary" type="submit" name="cancel" value="<?php _e ('Cancel', 'headspace'); ?>"/>
 				
 				<input type="hidden" name="action" value="hs_module_save"/>
-				<input type="hidden" name="module" value="<?php echo htmlspecialchars( $id ); ?>"/>
+				<input type="hidden" name="module" value="<?php echo esc_attr( $id ); ?>"/>
 				<input type="hidden" name="_ajax_nonce" value="<?php echo wp_create_nonce ('headspace-module_save_'.$id ) ?>"/>
 			</td>
 		</tr>

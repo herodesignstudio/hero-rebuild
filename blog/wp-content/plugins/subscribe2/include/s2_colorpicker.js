@@ -1,1 +1,27 @@
-jQuery(document).ready(function(){var id;jQuery(".colorpickerField").live("focusin",function(){id=this;jQuery(this).ColorPicker({onBeforeShow:function(){jQuery(this).ColorPickerSetColor(this.value);},onShow:function(el){jQuery(el).fadeIn(500);return false;},onHide:function(el){jQuery(el).fadeOut(500);return false;},onChange:function(hsb,hex,rgb){a=hex.toUpperCase();id.value=a;},onSubmit:function(hsb,hex,rgb,el){a=hex.toUpperCase();id.value=a;jQuery(".colorpicker").fadeOut(500);return false;}});jQuery(this).keyup(function(){if(this.value.length==6){id.value=this.value.toUpperCase();jQuery(this).ColorPickerSetColor(id.value);}});});});
+// version 1.0 - original version
+// version 1.1 - Update for Subscribe2 9.0 to remove unecessary code now WordPress 3.3 is minimum requirement
+jQuery(document).ready(function () {
+	jQuery(document).on('focus', '.colorpickerField', function () {
+		if (jQuery(this).is('.s2_initialised') || this.id.search('__i__') !== -1) {
+			return; // exit early, already initialized or not activated
+		}
+		jQuery(this).addClass('s2_initialised');
+		var picker,
+			field = jQuery(this).attr('id').substr(0, 20);
+		jQuery('.s2_colorpicker').each(function () {
+			if (jQuery(this).attr('id').search(field) !== -1) {
+				picker = jQuery(this).attr('id');
+				return false; // stop looping
+			}
+		});
+		jQuery(this).on('focusin', function (event) {
+			jQuery('.s2_colorpicker').hide();
+			jQuery.farbtastic('#' + picker).linkTo(this);
+			jQuery('#' + picker).slideDown();
+		});
+		jQuery(this).on('focusout', function (event) {
+			jQuery('#' + picker).slideUp();
+		});
+		jQuery(this).trigger('focus');
+	});
+});

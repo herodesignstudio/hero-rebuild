@@ -1,9 +1,8 @@
 === HeadSpace2 SEO ===
 Contributors: johnny5
-Donate link: http://urbangiraffe.com/about/support/
 Tags: seo, post, page, meta-data, title, keywords, tags, tagging, google, head, meta, crazyegg, piwik, awstats, analytics, webmaster, feedburner
 Requires at least: 3.0
-Tested up to: 3.2.1
+Tested up to: 3.4
 Stable tag: trunk
 
 Controls almost every aspect of your site's meta-data, including advanced tagging, Analytics, and dozens of plugins.  The best WordPress SEO solution!
@@ -115,13 +114,28 @@ You can find full details of installing a plugin on the [plugin installation pag
 1. Drag-and-drop module configuration
 2. Configure every aspect of your site's meta-data
 3. Configure meta data for posts and pages, including custom plugins and themes that only load on that post
-4. Mass-edit meta-data
 
 == Documentation ==
 
 Full documentation can be found on the [HeadSpace2](http://urbangiraffe.com/plugins/headspace2/) page.
 
 == Changelog ==
+
+= 3.6.42 =
+* Fix drag and drop problem with WP 3.5
+
+= 3.6.41 =
+* Fix problem with 'plugins' module causing post edit page to stop loading fully
+
+= 3.6.40 =
+* Fix HS not appearing on post edit page
+
+= 3.6.39 =
+* Update some old crufty code
+* Remove mass editor
+
+= 3.6.38 =
+* Updated to AIOSEO importer, thanks to Joan
 
 = 3.6.37 =
 * Fix bug with site modules not saving
@@ -159,129 +173,126 @@ Full documentation can be found on the [HeadSpace2](http://urbangiraffe.com/plug
 = 3.6.30 =
 * Fix #626
 
-= 3.6.29 = 
+= 3.6.29 =
 * Fix #613
 
-= 3.6.28 = 
+= 3.6.28 =
 * Don't display follow on links
 * Add relative links module
 * Add page links module
 
-= 3.6.27 = 
+= 3.6.27 =
 * Fix missing keyword module.
 * More PHP notice messages
 
-= 3.6.26 = 
+= 3.6.26 =
 * Fix JS errors.
 * Add compat with Ozh admin menu.
 * Add Ukrainian
 
-= 3.6.25 = 
+= 3.6.25 =
 * Fix PHP notice messages
 
-= 3.6.24 = 
+= 3.6.24 =
 * Fix more link
 * Prevent Ajax caching in IE
 
-= 3.6.23 = 
+= 3.6.23 =
 * Ajax error message.
 * Fix #555.
 * Add #514, #572
 
-= 3.6.22 = 
+= 3.6.22 =
 * Fix JS error
 * improve CSS contrast
 
-= 3.6.21 = 
+= 3.6.21 =
 * Fix #512
 * WP 2.3/2.5/2.8 compatibility
 * Add #453
 
-= 3.6.20 = 
+= 3.6.20 =
 * Add Belorussian translation
 
-= 3.6.19 = 
+= 3.6.19 =
 * Fix #485, #480, #498
 * Add #487
 
-= 3.6.18 = 
+= 3.6.18 =
 * Fix #473
 * Add #465, #456
 * Add meta-data for attachment pages
 * Separate posts and pages
 * Expand page numbering
 
-= 3.6.17 = 
+= 3.6.17 =
 * Add #450, #446
 
-= 3.6.16 = 
+= 3.6.16 =
 * Try to fix unauthorised access error
 
-= 3.6.15 = 
+= 3.6.15 =
 * Fix #433
 
-= 3.6.14 = 
+= 3.6.14 =
 * Update Analytics module
 * Explicit follow
 * %%excerpt_only%% tag
 * Follow Links module
 
-= 3.6.13 = 
+= 3.6.13 =
 * Fix #402, #405
 
-= 3.6.12 = 
+= 3.6.12 =
 * Add #401
 * AWstats tracking
 * Support for non UTF-8 encodings
 
-= 3.6.11 = 
+= 3.6.11 =
 * Fix module save bug introduced by 3.6.10
 
-= 3.6.10 = 
+= 3.6.10 =
 * Fix system module error reporting
 * Fix error on page editing for some users.
 * Fix #375, #377, #384.
 * Add #330.
 * Reduce memory usage
 
-= 3.6.9  = 
+= 3.6.9  =
 * Remove error introduced by 3.6.8
 
-= 3.6.8  = 
+= 3.6.8  =
 * Option to prevent plugins modifying excerpts
 * Turkish translation
 * Nonces
 
-= 3.6.7  = 
+= 3.6.7  =
 * Updated French translation
 * Tags on pages (again)
 
-= 3.6.6  = 
+= 3.6.6  =
 * WP 2.7 styling
 
-= 3.6.5  = 
+= 3.6.5  =
 * Fix problem with category description in 2.7
 
-= 3.6.4  = 
+= 3.6.4  =
 * Added #348, #343
 
-= 3.6.3  = 
+= 3.6.3  =
 * Romanian translation.
 * Fix #334
 
-= 3.6.2  = 
+= 3.6.2  =
 * Minor fixes for WP2.7.
 * Fix bug #324.
 * Add #325
 
-= 3.6.1  = 
+= 3.6.1  =
 * Metabox workaround
 
-= 3.6    = 
+= 3.6    =
 * WordPress 2.7 quick/bulk edit functions
 * Piwik bug (#306).
 * Check theme files.
 * Fix auto description
-
-
-

@@ -23,15 +23,15 @@ For full license details see license.txt
 
 class HSS_GoogleWebmaster extends HS_SiteModule {
 	var $code = '';
-	
+
 	function name() {
 		return __( 'Google Webmaster', 'headspace' );
 	}
-	
+
 	function description() {
 		return __( 'Adds Google Webmaster verification tag to your home page', 'headspace' );
 	}
-	
+
 	function run() {
 		add_filter( 'wp_head', array( &$this, 'wp_head' ) );
 	}
@@ -46,27 +46,27 @@ class HSS_GoogleWebmaster extends HS_SiteModule {
 		if ( isset( $data['code'] ) )
 			$this->code = $data['code'];
 	}
-	
+
 	function has_config() {
 		return true;
 	}
-	
+
 	function save_options( $data ) {
 		return array( 'code' => $data['code'] );
 	}
-	
+
 	function edit() {
 	?>
 	<tr>
 		<th width="150"><?php _e( 'Verification Tag', 'headspace'); ?>:</th>
 		<td>
-			<input size="40" name="code" type="text" value="<?php esc_attr_e( $this->code ); ?>"/><br/>
+			<input size="40" name="code" type="text" value="<?php echo esc_attr( $this->code ); ?>"/><br/>
 			<span class="sub"><?php _e( 'Enter Google Webmaster verification tag.', 'headspace' ); ?></span>
 		</td>
 	</tr>
 	<?php
 	}
-	
+
 	function file() {
 		return basename( __FILE__ );
 	}

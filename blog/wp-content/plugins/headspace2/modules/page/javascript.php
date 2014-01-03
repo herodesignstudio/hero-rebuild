@@ -24,7 +24,7 @@ For full license details see license.txt
 class HSM_JavaScript extends HSM_Module
 {
 	var $scripts = null;
-	
+
 	function load ($meta) {
 		// Extract settings from $meta and $options
 		if (isset ($meta['scripts'])) {
@@ -33,26 +33,26 @@ class HSM_JavaScript extends HSM_Module
 				$this->scripts = array ($this->scripts);
 		}
 	}
-	
+
 	function head () {
 		if (!empty ($this->scripts)) {
 			foreach ($this->scripts AS $script)
-				echo '<script type="text/javascript" src="'.$script.'"></script>'."\r\n";
+				echo '<script type="text/javascript" src="'.esc_attr( $script ).'"></script>'."\r\n";
 		}
 	}
 
 	function name () {
 		return __ ('JavaScript', 'headspace');
 	}
-	
+
 	function description () {
 		return __ ('Allow external JavaScript files to be referenced', 'headspace');
 	}
-	
+
 	function edit ($width, $area) {
 		global $headspace2;
 		$id = time ();
-		
+
 		if (count ($this->scripts) == 0)
 			$this->scripts = array ('');
 ?>
@@ -61,10 +61,10 @@ class HSM_JavaScript extends HSM_Module
 	<td id="headspace_scripts_<?php echo $id ?>">
 		<?php if (count ($this->scripts) > 0) : ?>
 			<?php foreach ($this->scripts AS $pos => $sheet) : ?>
-			<input type="text" name="headspace_js[]" value="<?php echo htmlspecialchars ($sheet) ?>" style="width: 90%"/>
+			<input type="text" name="headspace_js[]" value="<?php echo esc_attr ($sheet) ?>" style="width: 90%"/>
 			<?php if ($pos == 0) : ?>
 			<a href="#" onclick="jQuery('#headspace_scripts_<?php echo $id ?>').append ('<input type=&quot;text&quot; name=&quot;headspace_js[]&quot; style=&quot;width: 90%&quot;/>'); return false">
-				<img src="<?php echo $headspace2->url (); ?>/images/add.png" alt="add"/>
+				<img src="<?php echo plugins_url( '/images/add.png', $headspace2->base_url() ); ?>" alt="add"/>
 			</a>
 			<?php endif; ?>
 			<?php endforeach; ?>
@@ -73,14 +73,14 @@ class HSM_JavaScript extends HSM_Module
 </tr>
 <?php
 	}
-	
-	
+
+
 	function save ($data, $area) {
 		if (!is_array ($data['headspace_js']))
 			$data['headspace_js'] = array ();
 		return array ('scripts' => array_filter ($data['headspace_js']));
 	}
-	
+
 	function file () {
 		return basename (__FILE__);
 	}

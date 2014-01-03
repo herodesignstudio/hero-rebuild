@@ -1,12 +1,12 @@
 <?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?>
 <script type="text/javascript" charset="utf-8">
-	var wp_hs_base     = '<?php echo $this->url (); ?>/ajax.php';
+	var wp_hs_base     = '<?php echo plugins_url( 'ajax.php', $this->base_url() ); ?>';
 
 	jQuery(document).ready(function()
 	{
 		var clone = jQuery('#headspace_dash').clone ();
 		jQuery(clone).attr ('id', 'dashboard_headspace');
-		
+
 		// Copy internals of HeadSpace box into QuickPress
 		jQuery('#quick-press .submit').before ('<p class="submit" id="head_break"></p>');
 		jQuery('#dashboard_headspace').remove ();

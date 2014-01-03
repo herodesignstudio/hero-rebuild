@@ -24,43 +24,42 @@ For full license details see license.txt
 class HSM_Raw extends HSM_Module
 {
 	var $raw = null;
-	
+
 	function load ($meta) {
 		// Extract settings from $meta and $options
 		if (isset ($meta['raw']))
 			$this->raw = $meta['raw'];
 	}
-	
+
 	function head () {
 		if ($this->raw)
 		  echo $this->raw."\r\n";
 	}
-	
+
 	function name () {
 		return __ ('Raw data', 'headspace');
 	}
-	
+
 	function description () {
 		return __ ('Allows raw data to be inserted into the page meta section', 'headspace');
 	}
-	
+
 	function edit ($width, $area) {
 ?>
 <tr>
 	<th width="<?php echo $width ?>" align="right" valign="top"><?php _e ('Raw data', 'headspace') ?>:</th>
 	<td>
-		<textarea name="headspace_raw" style="width: 95%" rows="3"><?php echo htmlspecialchars ($this->raw) ?></textarea>
+		<textarea name="headspace_raw" style="width: 95%" rows="3"><?php echo esc_html($this->raw) ?></textarea>
 	</td>
 </tr>
 <?php
 	}
-	
+
 	function save ($data, $area) {
 		return array ('raw' => $data['headspace_raw']);
 	}
-	
+
 	function file () {
 		return basename (__FILE__);
 	}
 }
-?>

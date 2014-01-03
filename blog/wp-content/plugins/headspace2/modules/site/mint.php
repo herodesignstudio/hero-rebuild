@@ -5,7 +5,6 @@
  *
  * @package HeadSpace
  * @author John Godley
- * @copyright Copyright (C) John Godley
  **/
 
 /*
@@ -25,36 +24,36 @@ class HSS_Mint extends HS_SiteModule
 {
 	var $path            = '';
 	var $role            = 'everyone';
-	
+
 	var $trackable       = null;
-	
+
 	function name ()
 	{
 		return __ ('Mint', 'headspace');
 	}
-	
+
 	function description ()
 	{
 		return __ ('Adds Mint tracking code to all pages', 'headspace');
 	}
-	
+
 	function run ()
 	{
 		add_action ('wp_footer', array (&$this, 'wp_footer'));
 	}
-	
+
 	function is_trackable ()
 	{
 		if ($this->is_trackable !== null)
 			return $this->is_trackable;
-			
+
 		if (is_user_logged_in () && $this->role != 'everyone')
 		{
 			$user = wp_get_current_user ();
-			
+
 			global $wp_roles;
 			$caps = $wp_roles->get_role ($this->role);
-			
+
 			if ($caps)
 			{
 				// Calculate the highest level of the user and the role
@@ -64,7 +63,7 @@ class HSS_Mint extends HS_SiteModule
 					if (isset ($caps->capabilities['level_'.$x]))
 						break;
 				}
-			
+
 				$role_level = $x;
 
 				for ($x = 10; $x >= 0; $x--)
@@ -72,9 +71,9 @@ class HSS_Mint extends HS_SiteModule
 					if (isset ($user->allcaps['level_'.$x]))
 						break;
 				}
-			
+
 				$user_level = $x;
-			
+
 				// Quit if the user is greater level than the role
 				if ($user_level > $role_level)
 				{
@@ -83,11 +82,11 @@ class HSS_Mint extends HS_SiteModule
 				}
 			}
 		}
-		
+
 		$this->is_trackable = true;
 		return $this->is_trackable;
 	}
-	
+
 	function wp_footer ()
 	{
 		if ($this->path && $this->is_trackable ())
@@ -97,30 +96,30 @@ class HSS_Mint extends HS_SiteModule
 			<?php
 		}
 	}
-	
+
 	function load ($data)
 	{
 		if (isset ($data['path']))
 			$this->path = $data['path'];
-			
+
 		if (isset ($data['role']))
 			$this->role = $data['role'];
 	}
-	
+
 	function has_config () { return true; }
-	
+
 	function save_options ($data)
 	{
 		return array ('path' => $data['path'], 'role' => $data['role']);
 	}
-	
+
 	function edit ()
 	{
 	?>
 	<tr>
 		<th width="150"><?php _e ('Mint path', 'headspace'); ?>:</th>
 		<td>
-			<input type="text" name="path" value="<?php echo htmlspecialchars ($this->path); ?>"/>
+			<input type="text" name="path" value="<?php echo esc_attr ($this->path); ?>"/>
 			<span class="sub"><?php _e ('Enter the URL of your Mint installation (i.e. <code>/mint/</code>).', 'headspace'); ?></span>
 		</td>
 	</tr>
@@ -130,21 +129,19 @@ class HSS_Mint extends HS_SiteModule
 			<select name="role">
 				<option value="everyone"><?php _e ('Everyone', 'headspace'); ?></option>
 					<?php global $wp_roles; foreach ($wp_roles->role_names as $key => $rolename) : ?>
-						<option value="<?php echo $key ?>"<?php if ($this->role == $key) echo ' selected="selected"'; ?>><?php echo $rolename ?></option>
+						<option value="<?php echo $key ?>"<?php if ($this->role == $key) echo ' selected="selected"'; ?>><?php echo esc_html( $rolename ) ?></option>
 					<?php endforeach; ?>
 				</select>
 			</select>
-			
+
 			<span class="sub"><?php _e ('Users of the specified role or less will be tracked', 'headspace'); ?></span>
 		</td>
 	</tr>
 	<?php
 	}
-	
+
 	function file ()
 	{
 		return basename (__FILE__);
 	}
 }
-
-?>

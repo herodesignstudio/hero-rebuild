@@ -21,7 +21,6 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
  *
  * @package HeadSpace
  * @author John Godley
- * @copyright Copyright (C) John Godley
  **/
 class HeadspaceAjax extends HeadSpace_Plugin {
 	function HeadspaceAjax() {
@@ -29,18 +28,22 @@ class HeadspaceAjax extends HeadSpace_Plugin {
 
 		add_action( 'init', array( &$this, 'init' ) );
 	}
-	
+
+	function base_url() {
+		return __FILE__;
+	}
+
 	function init() {
 		if ( current_user_can( 'manage_options' ) ) {
 			$this->register_ajax( 'hs_settings_edit' );
 			$this->register_ajax( 'hs_settings_save' );
 			$this->register_ajax( 'hs_settings_load' );
-			
+
 			$this->register_ajax( 'hs_module_edit' );
 			$this->register_ajax( 'hs_module_load' );
 			$this->register_ajax( 'hs_module_save' );
 			$this->register_ajax( 'hs_module_order' );
-			
+
 			$this->register_ajax( 'hs_site_onoff' );
 			$this->register_ajax( 'hs_site_edit' );
 			$this->register_ajax( 'hs_site_load' );
@@ -51,7 +54,7 @@ class HeadspaceAjax extends HeadSpace_Plugin {
 		$this->register_ajax( 'hs_auto_tag' );
 		$this->register_ajax( 'hs_auto_description' );
 	}
-	
+
 	function obj_to_array( $items )	{
 		$merged = array();
 		if ( !empty( $items ) > 0 ) {
@@ -60,15 +63,15 @@ class HeadspaceAjax extends HeadSpace_Plugin {
 					$merged[$key] = $value;
 			}
 		}
-		
+
 		return $merged;
 	}
-	
+
 	function hs_settings_edit() {
 		$id        = $_GET['page'];
 		$headspace = HeadSpace2::get ();
 		$types     = $headspace->get_types();
-		
+
 		if ( in_array( $id, array_keys( $types ) ) && check_ajax_referer( 'headspace-edit_setting_'.$id ) ) {
 			$settings  = $this->obj_to_array( get_option( 'headspace_'.$id ) );
 
@@ -77,11 +80,11 @@ class HeadspaceAjax extends HeadSpace_Plugin {
 
 			$this->render_admin( 'page-settings-item', array( 'type' => $id, 'name' => $types[$id][0], 'desc' => $types[$id][1], 'nolink' => true ) );
 			$this->render_admin( 'page-settings-edit-ajax', array( 'simple' => $simple, 'advanced' => $advanced, 'type' => $id, 'area' => 'page' ) );
-			
+
 			die();
 		}
 	}
-	
+
 	function hs_settings_save() {
 		$id        = $_POST['module'];
 		$headspace = HeadSpace2::get ();
@@ -94,12 +97,12 @@ class HeadspaceAjax extends HeadSpace_Plugin {
 			$this->hs_settings_load();
 		}
 	}
-	
+
 	function hs_settings_load() {
 		$id        = $_POST['module'];
 		$headspace = HeadSpace2::get ();
 		$types     = $headspace->get_types();
-		
+
 		if ( in_array( $id, array_keys( $types ) ) && check_ajax_referer( 'headspace-page_setting_'.$id ) ) {
 			$settings = get_option( 'headspace_'.$id );
 
@@ -107,19 +110,19 @@ class HeadspaceAjax extends HeadSpace_Plugin {
 			die();
 		}
 	}
-	
+
 	function hs_module_edit() {
 		if ( check_ajax_referer( 'headspace-module_'.$_GET['module'] ) ) {
 			$headspace = HeadSpace2::get ();
 			$module    = $headspace->modules->get( $_GET['module'] );
-		
+
 			if ( $module )
 				$this->render_admin( 'page-module-edit', array( 'module' => $module, 'id' => $_GET['module'] ) );
-				
+
 			die();
 		}
 	}
-	
+
 	function hs_module_save() {
 		if ( check_ajax_referer( 'headspace-module_save_'.$_POST['module'] ) ) {
 			$headspace = HeadSpace2::get ();
@@ -132,7 +135,7 @@ class HeadspaceAjax extends HeadSpace_Plugin {
 			}
 		}
 	}
-	
+
 	function hs_module_load()	{
 		if ( check_ajax_referer( 'headspace-module_'.$_GET['module'] ) ) {
 			$headspace = HeadSpace2::get ();
@@ -140,7 +143,7 @@ class HeadspaceAjax extends HeadSpace_Plugin {
 
 			if ( $module )
 				$this->render_admin( 'page-module-item', array( 'module' => $module ) );
-				
+
 			die();
 		}
 	}
@@ -170,7 +173,7 @@ class HeadspaceAjax extends HeadSpace_Plugin {
 
 			if ( count( $options['advanced_modules'] ) > 0 ) {
 				$newmod = array ();
-				
+
 				foreach ( $options['advanced_modules'] AS $name ) {
 					$name = 'hsm_'.str_replace( '-', '_', strtolower( $name ) );
 					$module = new $name;
@@ -185,7 +188,7 @@ class HeadspaceAjax extends HeadSpace_Plugin {
 			update_option( 'headspace_options', $options );
 		}
 	}
-	
+
 	function hs_site_edit() {
 		if ( check_ajax_referer( 'headspace-site_module' ) ) {
 			$headspace = HeadSpace2::get ();
@@ -193,11 +196,11 @@ class HeadspaceAjax extends HeadSpace_Plugin {
 
 			if ( $module )
 				$this->render_admin( 'site-module-edit', array( 'module' => $module, 'id' => $_GET['module'] ) );
-				
+
 			die();
 		}
 	}
-	
+
 	function hs_site_load() {
 		if ( check_ajax_referer( 'headspace-site_module' ) ) {
 			$headspace = HeadSpace2::get ();
@@ -205,11 +208,11 @@ class HeadspaceAjax extends HeadSpace_Plugin {
 
 			if ($module)
 				$this->render_admin( 'site-module-item', array( 'module' => $module ) );
-				
+
 			die();
 		}
 	}
-	
+
 	function hs_site_save() {
 		if ( check_ajax_referer( 'headspace-site_save_'.$_POST['module'] ) ) {
 			$headspace = HeadSpace2::get ();
@@ -223,7 +226,7 @@ class HeadspaceAjax extends HeadSpace_Plugin {
 			die();
 		}
 	}
-	
+
 	function hs_site_onoff() {
 		if ( check_ajax_referer( 'headspace-site_module' ) ) {
 			$options = get_option( 'headspace_options' );
@@ -231,7 +234,7 @@ class HeadspaceAjax extends HeadSpace_Plugin {
 				$options = array();
 
 			$id = $_POST['module'];
-			
+
 			if ( isset( $_POST['onoff'] ) && !in_array( $id, $options['site_modules'] ) && isset( $_POST['file'] ) && $_POST['file'] )
 				$options['site_modules'][$_POST['file']] = $id;
 			elseif ( !isset( $_POST['onoff'] ) && in_array( $id, $options['site_modules'] ) )
@@ -271,13 +274,13 @@ class HeadspaceAjax extends HeadSpace_Plugin {
 			// Extract 1st paragraph first blank line
 			if ( function_exists( 'mb_strpos' ) ) {
 				$pos = mb_strpos( $excerpt, '.' );
-				
+
 				if ( $pos !== false )
 					$excerpt = mb_substr( $excerpt, 0, $pos + 1 );
 			}
 			else {
 				$pos = strpos( $excerpt, '.' );
-				
+
 				if ($pos !== false)
 					$excerpt = substr( $excerpt, 0, $pos + 1 );
 			}
@@ -285,27 +288,27 @@ class HeadspaceAjax extends HeadSpace_Plugin {
 			// Replace all returns and HTML
 			$excerpt = str_replace( "\r", '', $excerpt );
 			$excerpt = str_replace( "\n", '', $excerpt );
-		
+
 			// Restrict it to HS description length setting
 			if ( function_exists( 'mb_substr' ) )
 				$excerpt = mb_substr( $excerpt, 0, 500 );
 			else
 				$excerpt = substr( $excerpt, 0, 500 );
-			
+
 			$excerpt = preg_replace( '/\s+/', ' ', $excerpt );
 			echo $excerpt;
 			die();
 		}
 	}
-	
+
 	function hs_tag_update() {
 		$headspace = HeadSpace2::get ();
 		$id        = intval( $_GET['id'] );
-		
+
 		if ( check_ajax_referer( 'headspace-tags' ) && current_user_can( 'edit_post', $id ) ) {
 			$tags = $headspace->modules->get( 'hsm_tags' );
 			$tags->load( $headspace->get_post_settings( $id ) );
-		
+
 			$tags->suggestions( $id, $_POST['content'], $_GET['type'] );
 			die();
 		}
@@ -317,16 +320,16 @@ class HeadspaceAjax extends HeadSpace_Plugin {
 		if ( current_user_can( 'edit_post', $id ) && check_ajax_referer( 'headspace-auto_tag_'.$id ) ) {
 			$headspace = HeadSpace2::get();
 			$settings  = $headspace->get_post_settings( $id );
-		
+
 			$tags = $headspace->modules->get( 'hsm_tags' );
 			$tags->load( $settings );
 
 			include (ABSPATH.'wp-admin/admin-functions.php');
-	
+
 			$post = get_post( $id );
-		
+
 			$suggestions = $tags->get_suggestions( $post->post_content.' '.$post->post_title );
-	 		echo HeadSpace_Plugin::specialchars( implode( ', ', $suggestions ) );
+	 		echo esc_html( implode( ', ', $suggestions ) );
 			die();
 		}
 	}

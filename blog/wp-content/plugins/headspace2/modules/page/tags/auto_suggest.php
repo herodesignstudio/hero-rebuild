@@ -24,31 +24,31 @@ For full license details see license.txt
 class HS_TagSuggest
 {
 	var $dictionary = array ();
-	
+
 	function filter ($word) {
 		if (strlen ($word) > 2 && !in_array ($word, array ('the', 'and', 'off', 'that', 'there', 'not')))
 			return true;
 		return false;
 	}
-	
+
 	// Scans $text for appropriate tags, excluding any existing ones
 	function HS_TagSuggest ($dictionary) {
 		$this->dictionary = substr( $dictionary, 0, 200 );   // Memory limiter
 	}
-	
+
 	function stem_words ($words) {
 		$stemmer = new HS_PorterStemmer ();
-		
+
 		// Construct a stemmed dictionary
 		$stemmed = array ();
 		if (count ($words) > 0) {
 			foreach ($words AS $word)
 				$stemmed[] = $stemmer->Stem ($word);
 		}
-		
+
 		return $stemmed;
 	}
-	
+
 	// Look for matches of each word in the dictionary, whether direct or stemmed.  Returned the dictionary word
 	function matches ($text) {
 		// Strip HTML
@@ -59,14 +59,14 @@ class HS_TagSuggest
 
 		$text = preg_replace ('/[<>0-9\?\’“”\'\"\$\%_\[\]\(\)!:;\.,]/', '', $text);
 		$text = preg_replace ('/[\/]/', ' ', $text);
-		
+
 		// Split text into an array of words
 		$words = preg_split ("/[\s,]+/", $text);
 
 		// Remove words less than 2 characters and duplicates
 		$words = array_filter ($words, array (&$this, 'filter'));
 		$words = array_unique ($words);
-		
+
 		$stemmed_words = $this->stem_words ($words);
 
 		$matched = array ();
@@ -74,20 +74,20 @@ class HS_TagSuggest
 			$stemmer = new HS_PorterStemmer ();
 
 			$matched = apply_filters('headspace_auto_suggest', $matched, $this->dictionary, $text);
-			
+
 			if (empty ($matched)) {
 				// Go through each word in the dictionary and see if we can find a match
 				$word = strtok ($this->dictionary, ',');
 				while ($word !== false) {
 					$word = strtolower ($word);
-				
+
 					if (in_array ($word, $words) || in_array ($stemmer->Stem ($word), $stemmed_words))
 						$matched[] = $word;
-					
+
 					$word = strtok (',');
 				}
 			}
-			
+
 			$matched = array_unique ($matched);
 			sort ($matched);
 		}
@@ -95,5 +95,3 @@ class HS_TagSuggest
 		return $matched;
 	}
 }
-
-?>

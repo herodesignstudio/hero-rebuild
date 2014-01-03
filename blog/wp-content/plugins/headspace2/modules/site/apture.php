@@ -25,31 +25,31 @@ class HSS_Apture extends HS_SiteModule
 {
 	var $role = 'everyone';
 	var $token = '';
-	
+
 	function name ()
 	{
 		return __ ('Apture', 'headspace');
 	}
-	
+
 	function description ()
 	{
 		return __ ('Add Apture to all pages', 'headspace');
 	}
-	
+
 	function run ()
 	{
 		add_action ('wp_footer', array (&$this, 'wp_footer'));
 	}
-	
+
 	function is_trackable ()
 	{
 		if (is_user_logged_in () && $this->role != 'everyone')
 		{
 			$user = wp_get_current_user ();
-			
+
 			global $wp_roles;
 			$caps = $wp_roles->get_role ($this->role);
-			
+
 			if ($caps)
 			{
 				// Calculate the highest level of the user and the role
@@ -59,7 +59,7 @@ class HSS_Apture extends HS_SiteModule
 					if (isset ($caps->capabilities['level_'.$x]))
 						break;
 				}
-			
+
 				$role_level = $x;
 
 				for ($x = 10; $x >= 0; $x--)
@@ -67,9 +67,9 @@ class HSS_Apture extends HS_SiteModule
 					if (isset ($user->allcaps['level_'.$x]))
 						break;
 				}
-			
+
 				$user_level = $x;
-			
+
 				// Quit if the user is greater level than the role
 				if ($user_level > $role_level)
 				{
@@ -78,39 +78,39 @@ class HSS_Apture extends HS_SiteModule
 				}
 			}
 		}
-		
+
 		return true;
 	}
-	
+
 	function wp_footer ()
 	{
 		if ($this->is_trackable ())
 			echo '<script type="text/javascript" id="aptureScript" src="http://www.apture.com/js/apture.js?siteToken='.$this->token.'" charset="utf-8"></script>';
 	}
-	
+
 	function load ($data)
 	{
 		if (isset ($data['role']))
 			$this->role = $data['role'];
-			
+
 		if (isset ($data['token']))
 			$this->token = $data['token'];
 	}
-	
+
 	function has_config () { return true; }
-	
+
 	function save_options ($data)
 	{
 		return array ('token' => $data['token'], 'role' => $data['role']);
 	}
-	
+
 	function edit ()
 	{
 	?>
 	<tr>
 		<th width="150"><?php _e ('Site token', 'headspace'); ?>:</th>
 		<td>
-			<input type="text" name="token" value="<?php echo htmlspecialchars ($this->token); ?>"/><br/>
+			<input type="text" name="token" value="<?php echo esc_attr ($this->token); ?>"/><br/>
 			<span class="sub"><?php _e ('Enter your site token.', 'headspace'); ?></span>
 		</td>
 	</tr>
@@ -120,17 +120,17 @@ class HSS_Apture extends HS_SiteModule
 			<select name="role">
 				<option value="everyone"><?php _e ('Everyone', 'headspace'); ?></option>
 					<?php global $wp_roles; foreach ($wp_roles->role_names as $key => $rolename) : ?>
-						<option value="<?php echo $key ?>"<?php if ($this->role == $key) echo ' selected="selected"'; ?>><?php echo $rolename ?></option>
+						<option value="<?php echo $key ?>"<?php if ($this->role == $key) echo ' selected="selected"'; ?>><?php echo esc_html( $rolename ) ?></option>
 					<?php endforeach; ?>
 				</select>
 			</select>
-			
+
 			<span class="sub"><?php _e ('Users of the specified role or less will be tracked', 'headspace'); ?></span>
 		</td>
 	</tr>
 	<?php
 	}
-	
+
 	function file ()
 	{
 		return basename (__FILE__);

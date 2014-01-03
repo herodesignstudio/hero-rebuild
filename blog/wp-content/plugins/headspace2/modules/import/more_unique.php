@@ -27,29 +27,27 @@ class ImportMoreUnique extends HS_Importer
 	{
 		return __ ('More Unique', 'headspace');
 	}
-	
+
 	function import ()
 	{
 		$count = 0;
-		
+
 		global $wpdb;
 		$keywords = $wpdb->get_results ("SELECT * FROM {$wpdb->postmeta} WHERE meta_key='more'");
 		if ($keywords)
 		{
 			foreach ($keywords AS $keyword)
 				MetaData::add_more_tag ($keyword->post_id, $keyword->meta_value);
-			
+
 			$count += count ($keywords);
 		}
-		
+
 		return $count;
 	}
-	
+
 	function cleanup ()
 	{
 		global $wpdb;
 		$wpdb->query ("DELETE FROM {$wpdb->postmeta} WHERE meta_key='more'");
 	}
 }
-
-?>

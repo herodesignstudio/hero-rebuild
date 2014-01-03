@@ -1,43 +1,27 @@
 === HubSpot for WordPress ===
-Contributors: bwhalley, JonBishop, hubspot
+Contributors: dcancel, andypitre, aacook
 Tags: analytics, hubspot, tracking code, feedburner, action, call to action, team, about, contact, form, leads, api, shortcode, widget, dashboard, post, admin, sidebar, twitter, page, inbound, business, marketing, google map, call to action, cta, ad manager
-Requires at least: 2.9
-Tested up to: 3.2.1
-Stable tag: 1.5.5
+Requires at least: 3.0
+Tested up to: 3.5
+Stable tag: 1.8.7
 
-Allows WordPress users to take advantage of HubSpot lead nurturing, website analytics, and assorted features of the HubSpot CMS.
+Integrate your WordPress blog or website with HubSpot
 
 == Description ==
 
-The HubSpot for WordPress plugin allows WordPress users to take advantage of HubSpot lead nurturing, website analytics, and assorted features of the HubSpot CMS that are missing in WordPress.
+The HubSpot for WordPress plugin allows existing HubSpot customers  to integrate their existing WordPress blogs and websites with HubSpot. 
 
-You no longer need to be a HubSpot customer to use this plugin. Non-Customers can use a majority of the shortcodes, widgets and the "Call to Action" post type with stats.
-
-HubSpot customers benefit from Lead API integration and additional sidebar widgets that can be set up in your HubSpot dashboard. Customers can also easily view their HubSpot dashboard and stats right within WordPress.
-
-Demo: http://hubspot-wp.bishport.com
+= Not a HubSpot Customer? =
+Looking for an easy way to manage your marketing on WordPress? [Try LeadIn](http://leadin.com).
 
 = Features =
 
-* Easily forward feed requests to Feedburner AND rewrite links to feeds on your site
-* A widget to allow users to subscribe to your Feedburner feed via email
-* Widgets to allow you to easily display your http://websitegrader.com and http://twittergrader.com badges.
-* A shortcode to easily create a Team Page out of your registered WordPress users
-* A shortcode to easily add a Google Map with address info
-* A "Call to Action" post type with basic impression/click stats
-	* A shortcode to easily insert actions into your sidebar
-	* A widget to easily insert actions into pages and posts
-
-*(Additional features for HubSpot customers)*
-
 * Easily insert the HubSpot tracking script into your WordPress site
+* Track page and blog post analytics in HubSpot
 * View your HubSpot stats and HubSpot dashboard right within WordPress
-* View your HubSpot HubFeed on your WordPress dashboard as a widget
-* Add HubSpot custom lead forms to any page/post with a shortcode
-* A widget that displays links to your Social Media accounts set up in HubSpot
+* Automatically publish new blog posts to social media accounts via HubSpot
 
 Note: HubSpot collects usage information about this plugin so that we can better serve our customers and know what features to add. By installing and activating the HubSpot for WordPress plugin you agree to these terms.
-Learn More: http://bit.ly/piD0mY
 
 == Installation ==
 
@@ -47,27 +31,22 @@ This section describes how to install the plugin and get it working.
 
 *(using the Wordpress Admin Console)*
 
-1. Go to the plugins section of your Wordpress Admin Console, and click on 'add new'
-1. Search for "HubSpot" and click 'install' to install the plugin
+1. From your dashboard, click on "Plugins" in the left sidebar
+1. Add a new plugin
+1. Search for "HubSpot"
+1. Install "HubSpot for WordPress"
+1. Once Installed, click on the HubSpot plugin in your sidebar and go to "settings"
+1. Enter your Hub ID and authorize the plugin to access your HubSpot account (your Hub ID can be found with the product version at the bottom of your HubSpot Dashboard. Once you've entered it into the plugin settings, click the Click here to authenticate button. You'll be asked to login to HubSpot and give access).
+
+http://help.hubspot.com/articles/How_To_Doc/how-to-install-hubspot-javascript-tracking-code-on-wordpress
 
 *(manually via FTP)*
 
 1. Delete any existing 'hubspot' folder from the '/wp-content/plugins/' directory
 1. Upload the 'hubspot' folder to the '/wp-content/plugins/' directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-
-= Configuring Analytics =
-
-1. Look for the HubSpot section of your WordPress admin
-1. Click on settings to configure the HubSpot plugin to work for your portal.
-1. Your HubSpot Application Domain and Portal ID number are found in your HubSpot portal under Settings>Analytics>External Site Traffic Logging. The application domain can be found on the fifth line of the tracking code that looks like this var hs_ppa = "ssiskind.app101.hubspot.com";
-    - Your Application domain will also be in quotes, but will be unique to your portal's domain
-    - Your Portal ID number is displayed in grey text underneath verify tracking code.
-1. If you have not already set up a Feedburner feed for your blog you can set it up http://feedburner.google.com. Instructions for setting up Feedburner can be found here http://customers.hubspot.com/product-updates/bid/49734/Integrating-Feedburner-with-HubSpot
-1. After saving your settings, click on Dashboard under the HubSpot wordpress plugin options.
-1. Go to Analyze>Blog Analytics, and add your wordpress blog to be analyzed, follow the on screen instructions.
-1. Once blog analytics is finished crawling for data, you will see blog analytics populate.
-    - Keep in mind, if you use a comments engine other than wordpress default, comments may be unavailable in blog analytics.
+1. Once Installed, click on the HubSpot plugin in your sidebar and go to "settings"
+1. Enter your Hub ID and authorize the plugin to access your HubSpot account (your Hub ID can be found with the product version at the bottom of your HubSpot Dashboard. Once you've entered it into the plugin settings, click the Click here to authenticate button. You'll be asked to login to HubSpot and give access).
 
 == Frequently Asked Questions ==
 
@@ -131,10 +110,6 @@ There is written documentation inside of the plugin, which you can access by cli
 
 Unfortunately no - This Subscriber widget is a frontend to Feedburner's interface specifically.
 
-= Where do we find the Hubspot Feed again? =
-
-It's available by clicking on the orange RSS icon next to the word "HubFeed" on your dashboard.
-
 = Where do I find my feedburner feed? =
 
 Your feedburner feed will look something like http://feeds.feedburner.com/myfeedid. Go to http://feedburner.google.com and right-click on the RSS icon next to the Feed Title and click 'Copy Link Address'. You can also just left-click on the RSS icon next to the Feed Title and copy the URL in the addressbar on the next page.
@@ -145,7 +120,7 @@ Shortcodes are small bits of code that make the creation of advanced HTML elemen
 
 = How do I insert the 'HubSpot Follow Me' buttons into my sidebar? =
 
-Make sure you have input the proper HubSpot Portal ID on the HubSpot WordPress plugin configuration page. You can then use the widget under Appearance->Widgets titled "HubSpot: Follow Widget".
+Make sure you have input the proper HubSpot Hub ID on the HubSpot WordPress plugin configuration page. You can then use the widget under Appearance->Widgets titled "HubSpot: Follow Widget".
 
 = How does the HubSpot WordPress plugin forward to my feedburner? =
 
@@ -165,13 +140,92 @@ HubSpot collects usage information about this plugin, so that we can better serv
 
 == Screenshots ==
 
-1. Main settings page
-2. HubSpot Dashboard view within WordPress
-3. Actions Manager with stats
-4. Shortcodes settings
-5. Visual Editor pop-up for inserting shortcodes
+1. Finding the HubSpot plugin in your sidebar
+2. Setting up the Hubspot plugin
 
 == Changelog ==
+= 1.8.7 =
+* Updated the HubSpot tracking code to point to a new domain. The previous tracking code will continue to work, but we recommend updating to the latest version.
+
+= 1.8.6 =
+* Updated the HubSpot tracking code to point to a new domain. The previous tracking code will continue to work, but we recommend updating to the latest version.
+
+= 1.8.5 =
+* Fixed bug that was sending wrong page / content types for HubSpot analytics
+
+= 1.8.4 =
+* Do not use this version :) Accidental commit including debug code.
+
+= 1.8.2 =
+* New error logging, disabled by default
+
+= 1.8.1 =
+* Fixes for social media publishing
+
+= 1.8.0 =
+* New posts can now be sent to HubSpot for automatic social media publishing (via Blog Auto-publisher).
+
+= 1.7.4 =
+* Detailed error messaging for ssl_check()
+
+= 1.7.3 =
+* Fixed bug in detection of SSL connectivity issues, use wp_remote_get() instead of cURL
+
+= 1.7.2 =
+* Added detection of SSL connectivity issues
+* Updated IFRAME URL to prevent a 301
+
+= 1.7.1 =
+* Fixed a bug that preventing re-authentication if authentication had failed in the past.
+* Fixed a bug that was counting unapproved comments for posts.
+* Added better server error logging around authentication.
+
+= 1.7.0 =
+* Fixed a bug for users with custom admin directories.
+
+= 1.6.8 =
+* Fixed a two bugs that were causing issues for some installs.
+
+= 1.6.6 =
+* Blog author, publish date, comment count, and RSS subscribers will now be available in HubSpot Page Performance for all WordPress blog posts.
+
+= 1.6.5 =
+* Fixed bug that caused a Wordpress site's homepage to show up as a "Blog Post" within HubSpot Analytics.
+
+= 1.6.4 =
+* Removed demo link since that site is now full of malware (hacked)
+* Merged change from Jon Bishop that uses a more efficient query pattern
+* Change tag used for StatHat to use the HSWP prefix when reporting identified users.
+
+= 1.6.3 =
+* Fixed call to custom_admin_style() that was causing a warning to display on the admin screens
+
+= 1.6.2 =
+* Version bump to 1.6.2 to force update.
+* Converted Tabs to Spaces in files
+
+= 1.6.1 =
+* Removed dashboard widget to display HubFeed
+* Fixed a minor bug
+
+= 1.6.0 =
+* Version bump to 1.6.0
+
+= 1.5.9 =
+* Changed Portal ID to Hub ID
+* Added new tracking code and identity capture
+* Passing correct content type (post or page)
+
+= 1.5.8 =
+* Added trim to portal id in analytics
+
+= 1.5.7 =
+* Switched to new async tracking code
+
+= 1.5.6 =
+* Resetting post wp_query after call to action query
+* Cleaned up admin settings area
+
 = 1.5.5 =
 * Cleaned up admin
 * Cleaned up Team shortcodes

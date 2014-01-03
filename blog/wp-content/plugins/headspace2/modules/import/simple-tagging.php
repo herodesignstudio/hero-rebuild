@@ -27,11 +27,11 @@ class ImportSimpleTagging extends HS_Importer
 	{
 		return __ ('Simple Tagging', 'headspace');
 	}
-	
+
 	function import ()
 	{
 		$count = 0;
-		
+
 		global $wpdb;
 		$values = $wpdb->get_results ("SELECT * FROM {$wpdb->prefix}stp_tags");
 		if ($values)
@@ -42,18 +42,16 @@ class ImportSimpleTagging extends HS_Importer
 
 			foreach ($data AS $postid => $values)
 				MetaData::add_tags ($postid, implode (',', $values));
-			
+
 			$count += count ($values);
 		}
-		
+
 		return $count;
 	}
-	
+
 	function cleanup ()
 	{
 		global $wpdb;
 		$wpdb->query ("DROP TABLE {$wpdb->prefix}stp_tags");
 	}
 }
-
-?>

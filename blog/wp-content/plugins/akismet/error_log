@@ -1,1 +1,0 @@
-[29-Dec-2013 03:09:38 America/Chicago] PHP Fatal error:  Call to undefined function add_action() in /home/herodesi/public_html/blog/wp-content/plugins/akismet/akismet.php on line 32

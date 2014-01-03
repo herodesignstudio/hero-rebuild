@@ -27,18 +27,18 @@ class ImportJerome extends HS_Importer
 	{
 		return __ ('Jerome\'s Keywords', 'headspace');
 	}
-	
+
 	function import ()
 	{
 		$count = 0;
-		
+
 		global $wpdb;
 		$keywords = $wpdb->get_results ("SELECT * FROM {$wpdb->postmeta} WHERE meta_key='keywords'");
 		if ($keywords)
 		{
 			foreach ($keywords AS $keyword)
 				MetaData::add_tags ($keyword->post_id, $keyword->meta_value);
-			
+
 			$count += count ($keywords);
 		}
 
@@ -47,13 +47,13 @@ class ImportJerome extends HS_Importer
 		{
 			foreach ($keywords AS $keyword)
 				MetaData::add_tags ($keyword->post_id, $keyword->meta_value);
-			
+
 			$count += count ($keywords);
 		}
-		
+
 		return $count;
 	}
-	
+
 	function cleanup ()
 	{
 		global $wpdb;
@@ -61,5 +61,3 @@ class ImportJerome extends HS_Importer
 		$wpdb->query ("DELETE FROM {$wpdb->postmeta} WHERE meta_key='jkeywords'");
 	}
 }
-
-?>

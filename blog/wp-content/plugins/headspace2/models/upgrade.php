@@ -41,28 +41,28 @@ class HS_Upgrade
 		else if ($currentversion == 1) {
 			// Convert 3.1 to 3.2
 			$options = get_option ('headspace_options');
-			
+
 			$main = array
 			(
 				'inherit' => $options['inherit'] == 'true' ? true : false,
 				'updates' => $options['updates'] == 'true' ? true : false,
 			);
-			
+
 			update_option ('headspace_options', $main);
-			
+
 			// Copy all keywords into dictionary, along with hotwords
 			$hot = get_option ('headspace_keywords');
-			
+
 			$rows = $wpdb->get_results ("SELECT meta_value FROM {$wpdb->postmeta} WHERE meta_key='_headspace_keywords'");
 			if ($rows) {
 				foreach ($rows AS $row)
 					$hot .= $row->meta_value.',';
 			}
-			
+
 			update_option ('headspace_dictionary', HS_Upgrade::normalize_tags ($hot));
 			delete_option ('headspace_keywords');
 		}
-		
+
 		if ($currentversion < 8) {
 			//
 			$available = get_declared_classes ();
@@ -73,27 +73,27 @@ class HS_Upgrade
 			}
 
 			$available = array_diff (get_declared_classes (), $available);
-			
+
 			$options = get_option ('headspace_options');
 			if (count ($options['advanced_modules']) > 0) {
 				foreach ($options['advanced_modules'] AS $name) {
 					$module = new $name;
 					$newadvanced[$module->file ()] = $name;
 				}
-			
+
 				$options['advanced_modules'] = $newadvanced;
 			}
-			
+
 			if (count ($options['simple_modules']) > 0) {
 				$newsimple = array ();
 				foreach ($options['simple_modules'] AS $name) {
 					$module = new $name;
 					$newsimple[$module->file ()] = $name;
 				}
-			
+
 				$options['simple_modules']   = $newsimple;
 			}
-			
+
 			if (count ($options['site_modules']) > 0) {
 				$newsimple = array ();
 				foreach ($options['site_modules'] AS $name) {
@@ -102,27 +102,27 @@ class HS_Upgrade
 						$newsimple[$module->file ()] = $name;
 					}
 				}
-			
+
 				$options['site_modules'] = $newsimple;
 			}
 
 			update_option ('headspace_options', $options);
 		}
-			
+
 		if ($currentversion < 10) {
 			// Copy posts details to page details
 			update_option ('headspace_page', get_option ('headspace_post'));
 		}
-		
+
 		update_option ('headspace_version', $desiredversion);
 	}
-	
+
 	function normalize_tags($words, $order = true) {
 		$list = explode (',', trim (str_replace (',,', '', $words), ','));
 		if (count ($list) > 0) {
 			foreach ($list AS $pos => $item) {
 				$list[$pos] = trim ($item);
-				
+
 				if (function_exists ('mb_strtolower'))
 					$list[$pos] = mb_strtolower ($list[$pos], get_option ('blog_charset'));
 				else
@@ -132,27 +132,25 @@ class HS_Upgrade
 			$list = array_unique ($list);
 			if ($order)
 				sort ($list);
-				
+
 			return implode (',', $list);
 		}
-		
+
 		return $words;
 	}
-	
+
 	function remove($plugin) {
 		global $wpdb;
-		
+
 		delete_option ('headspace_page_plugins');
 		delete_option ('headspace_page_themes');
-		
+
 		$wpdb->query ("DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE '%_headspace_%'");
 		$wpdb->query ("DELETE FROM {$wpdb->options} WHERE option_name LIKE '%headspace_%'");
-		
+
 		// Deactivate the plugin
 		$current = get_option('active_plugins');
 		array_splice ($current, array_search (basename (dirname ($plugin)).'/'.basename ($plugin), $current), 1 );
 		update_option('active_plugins', $current);
 	}
 }
-
-?>

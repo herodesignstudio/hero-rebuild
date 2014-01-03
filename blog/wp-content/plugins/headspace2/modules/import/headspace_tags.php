@@ -31,26 +31,24 @@ class ImportHSTags extends HS_Importer
 	function import ()
 	{
 		$count = 0;
-	
+
 		global $wpdb;
 		$values = $wpdb->get_results ("SELECT * FROM {$wpdb->postmeta} WHERE meta_key='_headspace_keywords'");
 		if ($values)
 		{
 			foreach ($values AS $meta)
 				MetaData::add_tags ($meta->post_id, $meta->meta_value);
-		
+
 			$count += count ($values);
 		}
-	
+
 		return $count;
 	}
 
 	function cleanup ()
 	{
 		global $wpdb;
-		
+
 		$wpdb->query ("DELETE FROM {$wpdb->postmeta} WHERE meta_key='_headspace_keywords'");
 	}
 }
-
-?>

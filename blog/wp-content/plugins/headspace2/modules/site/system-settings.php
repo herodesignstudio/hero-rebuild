@@ -5,7 +5,6 @@
  *
  * @package HeadSpace
  * @author John Godley
- * @copyright Copyright (C) John Godley
  **/
 
 /*
@@ -26,17 +25,17 @@ class HSS_SystemSettings extends HS_SiteModule
 	var $memory_limit = 0;
 	var $timeout = -1;
 	var $errors = 'default';
-	
+
 	function name ()
 	{
 		return __ ('System Settings', 'headspace');
 	}
-	
+
 	function description ()
 	{
 		return __ ('Configure PHP memory limits, time-outs, and error reporting', 'headspace');
 	}
-	
+
 	function run ()
 	{
 		if ($this->errors == 'error')
@@ -45,10 +44,10 @@ class HSS_SystemSettings extends HS_SiteModule
 			error_reporting (E_ALL);
 		else if ($this->errors == 'none')
 			error_reporting (0);
-		
+
 		if ($this->memory_limit > 0)
 			ini_set ('memory_limit', $this->memory_limit.'M');
-			
+
 		if ($this->timeout != -1)
 			set_time_limit ($this->timeout);
 	}
@@ -57,16 +56,16 @@ class HSS_SystemSettings extends HS_SiteModule
 	{
 		if (isset ($data['memory_limit']))
 			$this->memory_limit = $data['memory_limit'];
-			
+
 		if (isset ($data['timeout']))
 			$this->timeout = $data['timeout'];
 
 		if (isset ($data['errors']))
 			$this->errors = $data['errors'];
 	}
-	
+
 	function has_config () { return true; }
-	
+
 	function save_options ($data)
 	{
 		return array
@@ -76,7 +75,7 @@ class HSS_SystemSettings extends HS_SiteModule
 			'errors'       => $data['errors']
 		);
 	}
-	
+
 	function edit ()
 	{
 		$timeouts = array
@@ -88,12 +87,12 @@ class HSS_SystemSettings extends HS_SiteModule
 			'3600' => __ ('1 hour', 'headspace'),
 			'0'    => __ ('No timeout limit', 'headspace')
 		);
-		
+
 		$limits = array
 		(
 			'0' => __ ('System default', 'headspace'), '16' => '16M', '32' => '32M', '64' => '64M', '128' => '128M'
 		);
-		
+
 		$reports = array
 		(
 			'default' => __ ('System default', 'headspace'),
@@ -107,7 +106,7 @@ class HSS_SystemSettings extends HS_SiteModule
 		<td>
 			<select name="memory_limit">
 					<?php foreach ($limits as $key => $text) : ?>
-						<option value="<?php echo $key ?>"<?php if ($this->memory_limit == $key) echo ' selected="selected"'; ?>><?php echo $text ?></option>
+						<option value="<?php echo $key ?>"<?php if ($this->memory_limit == $key) echo ' selected="selected"'; ?>><?php echo esc_html( $text ); ?></option>
 					<?php endforeach; ?>
 			</select>
 		</td>
@@ -117,7 +116,7 @@ class HSS_SystemSettings extends HS_SiteModule
 		<td>
 			<select name="timeout">
 					<?php foreach ($timeouts as $key => $text) : ?>
-						<option value="<?php echo $key ?>"<?php if ($this->timeout == $key) echo ' selected="selected"'; ?>><?php echo $text ?></option>
+						<option value="<?php echo $key ?>"<?php if ($this->timeout == $key) echo ' selected="selected"'; ?>><?php echo esc_html( $text ); ?></option>
 					<?php endforeach; ?>
 			</select>
 		</td>
@@ -127,18 +126,16 @@ class HSS_SystemSettings extends HS_SiteModule
 		<td>
 			<select name="errors">
 					<?php foreach ($reports as $key => $text) : ?>
-						<option value="<?php echo $key ?>"<?php if ($this->errors == $key) echo ' selected="selected"'; ?>><?php echo $text ?></option>
+						<option value="<?php echo $key ?>"<?php if ($this->errors == $key) echo ' selected="selected"'; ?>><?php echo esc_html( $text ); ?></option>
 					<?php endforeach; ?>
 			</select>
 		</td>
 	</tr>
 	<?php
 	}
-	
+
 	function file ()
 	{
 		return basename (__FILE__);
 	}
 }
-
-?>

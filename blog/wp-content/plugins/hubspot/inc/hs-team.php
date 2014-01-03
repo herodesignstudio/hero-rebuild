@@ -1,18 +1,18 @@
 <?php
 class WPHubspotTeam {
-	
-	function WPHubspotTeam() {
-		// Team page
-		if(is_admin()){
-			add_filter('user_contactmethods', array(&$this, 'hs_filter_contact'));
-		} else {
-			add_shortcode('hs_team',  array(&$this, 'hs_create_team_shortcode'));
-		}
-	}
-	//=============================================
-	// Add shortcode
-	//=============================================
-	function hs_create_team_shortcode($atts) {
+    
+    function WPHubspotTeam() {
+        // Team page
+        if(is_admin()){
+            add_filter('user_contactmethods', array(&$this, 'hs_filter_contact'));
+        } else {
+            add_shortcode('hs_team',  array(&$this, 'hs_create_team_shortcode'));
+        }
+    }
+    //=============================================
+    // Add shortcode
+    //=============================================
+    function hs_create_team_shortcode($atts) {
                 extract( shortcode_atts( array(
                         'id' => array(),
                 ), $atts ) );
@@ -20,87 +20,87 @@ class WPHubspotTeam {
                     $str = trim(preg_replace('|\\s*(?:' . preg_quote(',') . ')\\s*|', ',', $id));
                     $id = explode(",", $str);
                 }
-		$hs_content = $this->hs_get_team_info($id);
+        $hs_content = $this->hs_get_team_info($id);
                 
                 // Check for nested shortcodes
                 $hs_content = do_shortcode($hs_content);
                 
-		return $hs_content;
-	}
+        return $hs_content;
+    }
 
-	//=============================================
-	// Change profile page contact options
-	//=============================================
-	function hs_filter_contact($contactmethods) {
-		unset($contactmethods['aim']);
-		unset($contactmethods['jabber']);
-		unset($contactmethods['yim']);
-		$contactmethods['user_title'] = 'Title';
-		$contactmethods['twitter'] = 'Twitter';
-		$contactmethods['facebook'] = 'Facebook';
-		$contactmethods['linkedin'] = 'LinkedIn';
-		$contactmethods['digg'] = 'Digg';
-		$contactmethods['flickr'] = 'Flickr';
-		$contactmethods['stumbleupon'] = 'StumbleUpon';
-		$contactmethods['youtube'] = 'YouTube';
-		$contactmethods['yelp'] = 'Yelp';
-		$contactmethods['reddit'] = 'Reddit';
-		$contactmethods['delicious'] = 'Delicious';
-		$contactmethods['aim'] = 'AIM';
-		$contactmethods['jabber'] = 'Jabber / Google Talk';
-		$contactmethods['yim'] = 'Yahoo IM';
-		return $contactmethods;
-	}
-	//=============================================
-	// Change profile page contact options
-	//=============================================
-	function hs_team_get_social($author_ID, $social){
-		$content="";
-		if($author_social = get_the_author_meta($social,$author_ID)){
-			switch ($social){
-				case 'twitter':
-					$content = "<a href='http://www.twitter.com/" . $author_social . "'><img src='" . HUBSPOT_URL ."/images/twitter.png' alt='Twitter'/></a>";
-					break;
-				case 'facebook':
-					$content = "<a href='http://www.facebook.com/" . $author_social . "'><img src='" . HUBSPOT_URL ."/images/facebook.png' alt='Facebook'/></a>";
-					break;
-				case 'linkedin':
-					$content = "<a href='http://www.linkedin.com/in/" . $author_social . "'><img src='" . HUBSPOT_URL ."/images/linkedin.png' alt='LinkedIn'/></a>";
-					break;
-				case 'digg':
-					$content = "<a href='http://digg.com/" . $author_social . "'><img src='" . HUBSPOT_URL ."/images/digg.png' alt='Digg'/></a>";
-					break;
-				case 'flickr':
-					$content = "<a href='" . $author_social . "'><img src='" . HUBSPOT_URL ."/images/flickr.png' alt='Flickr'/></a>";
-					break;
-				case 'stumbleupon':
-					$content = "<a href='" . $author_social . "'><img src='" . HUBSPOT_URL ."/images/stumbleupon.png' alt='Stumbleupon'/></a>";
-					break;
-				case 'youtube':
-					$content = "<a href='http://www.youtube.com/user/" . $author_social . "'><img src='" . HUBSPOT_URL ."/images/youtube.png' alt='YouTube'/></a>";
-					break;
-				case 'yelp':
-					$content = "<a href='" . $author_social . "'><img src='" . HUBSPOT_URL ."/images/yelp.png' alt='Yelp'/></a>";
-					break;
-				case 'reddit':
-					$content = "<a href='http://www.reddit.com/user/" . $author_social . "'><img src='" . HUBSPOT_URL ."/images/reddit.png' alt='Reddit'/></a>";
-					break;
-				case 'delicious':
-					$content = "<a href='http://www.delicious.com/" . $author_social . "'><img src='" . HUBSPOT_URL ."/images/delicious.png' alt='Delicious'/></a>";
-					break;
-			}
-		}
-		return $content;
-	}
-	//=============================================
-	// Display team members
-	//=============================================
-	function hs_get_team_info($team_list = array()){
-		global $wpdb;
-		$hs_settings = array();
-		$hs_settings = get_option('hs_settings');
-		$content = "";
-		$the_author_title = "";
+    //=============================================
+    // Change profile page contact options
+    //=============================================
+    function hs_filter_contact($contactmethods) {
+        unset($contactmethods['aim']);
+        unset($contactmethods['jabber']);
+        unset($contactmethods['yim']);
+        $contactmethods['user_title'] = 'Title';
+        $contactmethods['twitter'] = 'Twitter';
+        $contactmethods['facebook'] = 'Facebook';
+        $contactmethods['linkedin'] = 'LinkedIn';
+        $contactmethods['digg'] = 'Digg';
+        $contactmethods['flickr'] = 'Flickr';
+        $contactmethods['stumbleupon'] = 'StumbleUpon';
+        $contactmethods['youtube'] = 'YouTube';
+        $contactmethods['yelp'] = 'Yelp';
+        $contactmethods['reddit'] = 'Reddit';
+        $contactmethods['delicious'] = 'Delicious';
+        $contactmethods['aim'] = 'AIM';
+        $contactmethods['jabber'] = 'Jabber / Google Talk';
+        $contactmethods['yim'] = 'Yahoo IM';
+        return $contactmethods;
+    }
+    //=============================================
+    // Change profile page contact options
+    //=============================================
+    function hs_team_get_social($author_ID, $social){
+        $content="";
+        if($author_social = get_the_author_meta($social,$author_ID)){
+            switch ($social){
+                case 'twitter':
+                    $content = "<a href='http://www.twitter.com/" . $author_social . "'><img src='" . HUBSPOT_URL ."/images/twitter.png' alt='Twitter'/></a>";
+                    break;
+                case 'facebook':
+                    $content = "<a href='http://www.facebook.com/" . $author_social . "'><img src='" . HUBSPOT_URL ."/images/facebook.png' alt='Facebook'/></a>";
+                    break;
+                case 'linkedin':
+                    $content = "<a href='http://www.linkedin.com/in/" . $author_social . "'><img src='" . HUBSPOT_URL ."/images/linkedin.png' alt='LinkedIn'/></a>";
+                    break;
+                case 'digg':
+                    $content = "<a href='http://digg.com/" . $author_social . "'><img src='" . HUBSPOT_URL ."/images/digg.png' alt='Digg'/></a>";
+                    break;
+                case 'flickr':
+                    $content = "<a href='" . $author_social . "'><img src='" . HUBSPOT_URL ."/images/flickr.png' alt='Flickr'/></a>";
+                    break;
+                case 'stumbleupon':
+                    $content = "<a href='" . $author_social . "'><img src='" . HUBSPOT_URL ."/images/stumbleupon.png' alt='Stumbleupon'/></a>";
+                    break;
+                case 'youtube':
+                    $content = "<a href='http://www.youtube.com/user/" . $author_social . "'><img src='" . HUBSPOT_URL ."/images/youtube.png' alt='YouTube'/></a>";
+                    break;
+                case 'yelp':
+                    $content = "<a href='" . $author_social . "'><img src='" . HUBSPOT_URL ."/images/yelp.png' alt='Yelp'/></a>";
+                    break;
+                case 'reddit':
+                    $content = "<a href='http://www.reddit.com/user/" . $author_social . "'><img src='" . HUBSPOT_URL ."/images/reddit.png' alt='Reddit'/></a>";
+                    break;
+                case 'delicious':
+                    $content = "<a href='http://www.delicious.com/" . $author_social . "'><img src='" . HUBSPOT_URL ."/images/delicious.png' alt='Delicious'/></a>";
+                    break;
+            }
+        }
+        return $content;
+    }
+    //=============================================
+    // Display team members
+    //=============================================
+    function hs_get_team_info($team_list = array()){
+        global $wpdb;
+        $hs_settings = array();
+        $hs_settings = get_option('hs_settings');
+        $content = "";
+        $the_author_title = "";
                 $sorted_team_results = array();
 
                 $query_del = ' WHERE'; // begin query with WHERE and deliminate with OR
@@ -116,23 +116,23 @@ class WPHubspotTeam {
                     }
                 }
                 // if admin is hidden in settings make sure to exclude from results
-		if(isset($hs_settings['hs_team_admin']) && $hs_settings['hs_team_admin']){
+        if(isset($hs_settings['hs_team_admin']) && $hs_settings['hs_team_admin']){
                     $query_params .= $query_del . ' ID != 1';
                 }
                 // get authors
-		$team_results = $wpdb->get_results('SELECT DISTINCT ID FROM '.$wpdb->users . $query_params);
+        $team_results = $wpdb->get_results('SELECT DISTINCT ID FROM '.$wpdb->users . $query_params);
 
                 // loop through and display authors
-		if($team_results){
+        if($team_results){
                     // Sort if $team_list exists or just fill up sort array with team member values
                     if(empty($team_list)){
                         foreach($team_results as $team_member){
-				$userdata = get_userdata($team_member->ID);
+                $userdata = get_userdata($team_member->ID);
                                 array_push($sorted_team_results, $userdata);
                         }
                     } else {
                         foreach($team_list as $team_member){
-				$userdata = get_userdata($team_member);
+                $userdata = get_userdata($team_member);
                                 array_push($sorted_team_results, $userdata);
                         }
                     }
@@ -168,9 +168,9 @@ class WPHubspotTeam {
                                     $content .= "</p>";
                             }
                             $content .= "</div></div>";
-			}
-		}
-		return $content;
-	}	
+            }
+        }
+        return $content;
+    }   
 }
 ?>

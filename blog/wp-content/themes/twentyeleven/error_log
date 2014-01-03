@@ -1,3 +1,0 @@
-[28-Oct-2013 14:07:38 America/Chicago] PHP Fatal error:  Call to undefined function get_header() in /home/herodesi/public_html/blog/wp-content/themes/twentyeleven/tag.php on line 10
-[31-Oct-2013 21:10:43 America/Chicago] PHP Fatal error:  Call to undefined function get_header() in /home/herodesi/public_html/blog/wp-content/themes/twentyeleven/index.php on line 15
-[26-Dec-2013 10:40:41 America/Chicago] PHP Fatal error:  Call to undefined function get_header() in /home/herodesi/public_html/blog/wp-content/themes/twentyeleven/404.php on line 10

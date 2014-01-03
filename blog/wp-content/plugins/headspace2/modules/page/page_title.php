@@ -28,49 +28,49 @@ class HSM_PageTitle extends HSM_Module
 	var $force       = false;
 	var $position    = 'before';
 	var $max_length  = 0;
-	
+
 	function HSM_PageTitle ($options = array ()) {
 		if (isset ($options['separator']))
 			$this->separator = $options['separator'];
-		
+
 		if (isset ($options['position']))
 			$this->position = $options['position'];
 
 		if (isset ($options['force']))
 			$this->force = $options['force'];
-			
+
 		if ( isset( $options['max_length'] ) )
 			$this->max_length = $options['max_length'];
 	}
-	
+
 	function run () {
 		add_filter ('wp_title', array (&$this, 'wp_title'), 1, 3);
-		
+
 		if ($this->force)
 			ob_start (array (&$this, 'brute_force_title'));
 	}
-	
+
 	function brute_force_title ($page) {
 		return preg_replace_callback ('@<title>(.*?)</title>@s', array (&$this, 'replace_title'), $page);
 	}
-	
+
 	function replace_title ($matches) {
 		return '<title>'.trim ($this->wp_title ($matches[1])).'</title>';
 	}
-	
-	
+
+
 	function load ($meta) {
 		if (isset ($meta['page_title']))
 			$this->page_title = $meta['page_title'];
 	}
-	
-	
+
+
 	/**
 	 * Insert re-configured site title
 	 *
 	 * @return void
 	 **/
-	
+
 	function wp_title ($title, $separator = '', $location = '') {
 		HeadSpace2::reload ($this);
 
@@ -101,28 +101,28 @@ class HSM_PageTitle extends HSM_Module
 
 		return $title;
 	}
-	
+
 	function name () {
 		return __ ('Page title', 'headspace');
 	}
-	
+
 	function can_quick_edit () { return true; }
 	function quick_view () {
 		echo $this->page_title;
 	}
-	
+
 	function description () {
 		return __ ('Allow page title to be changed (i.e. the title in the browser window title)', 'headspace');
 	}
-	
+
 	function has_config () { return true; }
-	
+
 	function edit_options () {
 		?>
 		<tr>
 			<th width="120"><?php _e ('Title separator', 'headspace'); ?>:</th>
 			<td>
-				<input class="text" type="text" name="separator" size="5" value="<?php esc_attr_e( $this->separator ) ?>"/>
+				<input class="text" type="text" name="separator" size="5" value="<?php echo esc_attr( $this->separator ) ?>"/>
 				<span class="sub"><?php _e ('Leave blank to use theme default', 'headspace'); ?></span>
 			</td>
 		</tr>
@@ -150,12 +150,12 @@ class HSM_PageTitle extends HSM_Module
 		<tr>
 			<th><?php _e ('Max length', 'headspace'); ?>:</th>
 			<td>
-				<input type="text" name="max_length" size="5" value="<?php echo $this->max_length ?>"/>
+				<input type="text" name="max_length" size="5" value="<?php echo esc_attr( $this->max_length ) ?>"/>
 			</td>
 		</tr>
 		<?php
 	}
-	
+
 	function save_options ($data) {
 		return array(
 			'separator' => $data['separator'],
@@ -164,7 +164,7 @@ class HSM_PageTitle extends HSM_Module
 			'max_length' => intval( $data['max_length'] )
 		);
 	}
-	
+
 	function edit ($width, $area) {
 		$id = time();
 	?>
@@ -180,7 +180,7 @@ class HSM_PageTitle extends HSM_Module
 		</th>
 		<td>
 			<input class="text" type="text" name="headspace_page_title" value="<?php echo esc_attr( $this->page_title ) ?>" style="width: 95%" id="title_<?php echo $id; ?>"/>
-			
+
 			<?php if ( $this->max_length > 0 ) : ?>
 				<script type="text/javascript" charset="utf-8">
 					jQuery('#title_<?php echo $id ?>').Counter( { limit: <?php echo $this->max_length; ?>, remaining: '<?php echo esc_js( __( 'remaining', 'headspace' ) )?>' } );
@@ -190,11 +190,11 @@ class HSM_PageTitle extends HSM_Module
 	</tr>
 	<?php
 	}
-	
+
 	function save ($data, $area) {
 		return array ('page_title' => trim ($data['headspace_page_title']));
 	}
-	
+
 	function file () {
 		return basename (__FILE__);
 	}

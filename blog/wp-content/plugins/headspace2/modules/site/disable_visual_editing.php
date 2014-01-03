@@ -27,26 +27,25 @@ class HSS_DisableVisual extends HS_SiteModule
 	{
 		return __ ('Disable Visual Editing', 'headspace');
 	}
-	
+
 	function description ()
 	{
 		return __ ('Disable visual editing', 'headspace');
 	}
-	
+
 	function can_edit ()
 	{
 		return false;
 	}
-	
+
 	function run ()
 	{
 		add_filter ('user_can_richedit', array (&$this, 'can_edit'));
 	}
-	
+
 	function file ()
 	{
 		return basename (__FILE__);
 	}
 }
 
-?>

@@ -5,7 +5,6 @@
  *
  * @package HeadSpace
  * @author John Godley
- * @copyright Copyright (C) John Godley
  **/
 
 /*
@@ -26,17 +25,17 @@ class HSS_WpFormatting extends HS_SiteModule
 	var $wpautop     = false;
 	var $clickable   = true;
 	var $wptexturize = false;
-	
+
 	function name ()
 	{
 		return __ ('WordPress content formatting', 'headspace');
 	}
-	
+
 	function description ()
 	{
 		return __ ('Allows you to enable or disable various WordPress auto-formatting (including wpautop)', 'headspace');
 	}
-	
+
 	function run ()
 	{
 		if ($this->wpautop === false)
@@ -45,7 +44,7 @@ class HSS_WpFormatting extends HS_SiteModule
 			remove_filter ('the_excerpt',  'wpautop');
 			remove_filter ('comment_text', 'wpautop');
 		}
-		
+
 		if ($this->wptexturize === false)
 		{
 			remove_filter ('the_content',  'wptexturize');
@@ -60,30 +59,30 @@ class HSS_WpFormatting extends HS_SiteModule
 			remove_filter ('bloginfo', 'wptexturize');
 			remove_filter ('wp_title', 'wptexturize');
 		}
-			
+
 		if ($this->clickable === false)
 			remove_filter ('comment_text', 'make_clickable');
 	}
-	
+
 	function load ($data)
 	{
 		if (isset ($data['wpautop']))
 			$this->wpautop = $data['wpautop'];
-			
+
 		if (isset ($data['wptexturize']))
 			$this->wptexturize = $data['wptexturize'];
-	
+
 		if (isset ($data['clickable']))
 			$this->clickable = $data['clickable'];
 	}
-	
+
 	function has_config () { return true; }
-	
+
 	function save_options ($data)
 	{
 		return array ('wpautop' => isset ($data['wpautop']) ? true : false, 'wptexturize' => isset ($data['wptexturize']) ? true : false, 'clickable' => isset ($data['clickable']) ? true : false);
 	}
-	
+
 	function edit ()
 	{
 	?>
@@ -110,7 +109,7 @@ class HSS_WpFormatting extends HS_SiteModule
 	</tr>
 	<?php
 	}
-	
+
 	function file ()
 	{
 		return basename (__FILE__);

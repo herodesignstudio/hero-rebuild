@@ -27,11 +27,11 @@ class ImportUTW extends HS_Importer
 	{
 		return __ ('Ultimate Tag Warrior', 'headspace');
 	}
-	
+
 	function import ()
 	{
 		$count = 0;
-		
+
 		global $wpdb;
 		$values = $wpdb->get_results ("SELECT {$wpdb->prefix}post2tag.post_id,{$wpdb->prefix}tags.tag FROM {$wpdb->prefix}tags,{$wpdb->prefix}post2tag WHERE {$wpdb->prefix}tags.tag_id={$wpdb->prefix}post2tag.tag_id");
 		if ($values)
@@ -42,16 +42,14 @@ class ImportUTW extends HS_Importer
 
 			foreach ($data AS $postid => $values)
 				MetaData::add_tags ($postid, implode (',', $values));
-			
+
 			$count += count ($values);
 		}
-		
+
 		return $count;
 	}
-	
+
 	function cleanup ()
 	{
 	}
 }
-
-?>

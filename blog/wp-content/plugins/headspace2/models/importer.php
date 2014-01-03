@@ -5,7 +5,6 @@
  *
  * @package HeadSpace
  * @author John Godley
- * @copyright Copyright (C) John Godley
  **/
 
 /*
@@ -32,7 +31,7 @@ class HS_Importer
 class HS_ImportManager
 {
 	var $modules = array ();
-	
+
 	function HS_ImportManager() {
 		// Load all available module files
 		$available = get_declared_classes ();
@@ -43,7 +42,7 @@ class HS_ImportManager
 		}
 
 		$available = array_diff (get_declared_classes (), $available);
-		
+
 		if (count ($available) > 0) {
 			foreach ($available AS $pos => $name) {
 				$name = strtolower ($name);
@@ -51,15 +50,14 @@ class HS_ImportManager
 			}
 		}
 	}
-	
+
 	function available() {
 		return $this->modules;
 	}
-	
+
 	function get($id) {
 		if (isset ($this->modules[$id]))
 			return $this->modules[$id];
 		return false;
 	}
 }
-?>

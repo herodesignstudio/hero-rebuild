@@ -1,7 +1,6 @@
 /**
  * @package HeadSpace
  * @author John Godley
- * @copyright Copyright (C) John Godley
  **/
 
 /*
@@ -102,9 +101,13 @@ var HeadSpace;
     }
     
     function page_modules() {
-  		$('#simple-modules').sortable( 'destroy' ).sortable( { connectWith: ['#advanced-modules', '#disabled-modules'], opacity: 0.7, update: save_sort } );
-  		$('#advanced-modules').sortable( 'destroy' ).sortable( { connectWith: ['#simple-modules', '#disabled-modules'], opacity: 0.7, update: save_sort } );
-  		$('#disabled-modules').sortable( 'destroy' ).sortable( { connectWith: ['#simple-modules', '#advanced-modules'], opacity: 0.7, update: save_sort } );
+    	$('#simple-modules').filter(":ui-sortable").sortable("destroy");
+    	$('#advanced-modules').filter(":ui-sortable").sortable("destroy");
+    	$('#disabled-modules').filter(":ui-sortable").sortable("destroy");
+
+  		$('#simple-modules').sortable( { connectWith: ['#advanced-modules', '#disabled-modules'], opacity: 0.7, update: save_sort } );
+  		$('#advanced-modules').sortable( { connectWith: ['#simple-modules', '#disabled-modules'], opacity: 0.7, update: save_sort } );
+  		$('#disabled-modules').sortable( { connectWith: ['#simple-modules', '#advanced-modules'], opacity: 0.7, update: save_sort } );
 
       // Help toggles
       $( 'a.help' ).unbind( 'click' ).click(function() {
@@ -334,7 +337,7 @@ var HeadSpace;
 function add_plugin ()
 {
   var text = '<li>';
-  text += '<div class="option"><a href="#" onclick="return delete_plugin(this);"><img src="' + headspace_delete + '" alt="delete" width="16" height="16"/></a></div>';
+  text += '<div class="option"><a href="#" onclick="return delete_plugin(this);"><img src="' + hs2.headspace_delete + '" alt="delete" width="16" height="16"/></a></div>';
   text +=  document.getElementById('headspace_plugin').options[document.getElementById('headspace_plugin').selectedIndex].innerHTML;
   text += '<input type=\'hidden\' name=\'headspace_plugins[]\' value=\'' + jQuery('#headspace_plugin').val() + '\'/></li>';
   

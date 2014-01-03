@@ -24,28 +24,28 @@ For full license details see license.txt
 class HS_TagYahoo
 {
 	var $url = 'http://api.search.yahoo.com/ContentAnalysisService/V1/termExtraction';
-	
+
 	function HS_TagYahoo ($api) {
 		$this->api = $api;
 	}
-	
+
 	function matches ($text) {
 		if (function_exists ('curl_init')) {
 			$ch = curl_init ();
-		
+
 			curl_setopt ($ch, CURLOPT_URL, $this->url);
 			curl_setopt ($ch, CURLOPT_HEADER, 0);
 			curl_setopt ($ch, CURLOPT_POST, true);
 			curl_setopt ($ch, CURLOPT_POSTFIELDS, array ('appid' => $this->api, 'output' => 'php', 'context' => $text));
 			curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
-		
+
 			$tags = array ();
 			if (($output = curl_exec ($ch))) {
 				$output = unserialize ($output);
 				if (isset ($output['ResultSet']['Result']))
 					$tags = $output['ResultSet']['Result'];
 			}
-		
+
 			curl_close ($ch);
 			return $tags;
 		}
@@ -53,5 +53,3 @@ class HS_TagYahoo
 			return array ('You do not have CURL installed');
 	}
 }
-
-?>

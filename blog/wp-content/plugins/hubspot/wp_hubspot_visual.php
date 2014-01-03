@@ -32,138 +32,138 @@ wp_admin_css( 'wp-admin', true );
                 background:#ffebd6;
                 border:2px dashed #ff8a10;
         }
-	#wphead {
-		font-size: 80%;
-		border-top: 0;
-		color: #555;
-		background-color: #f1f1f1;
-	}
-	#wphead h1 {
-		font-size: 24px;
-		color: #555;
-		margin: 0;
-		padding: 10px;
-	}
-	#tabs {
-		padding: 15px 15px 3px;
-		background-color: #f1f1f1;
-		border-bottom: 1px solid #dfdfdf;
-	}
-	#tabs li {
-		display: inline;
-	}
-	#tabs a.current {
-		background-color: #fff;
-		border-color: #dfdfdf;
-		border-bottom-color: #fff;
-		color: #d54e21;
-	}
-	#tabs a {
-		color: #2583AD;
-		padding: 6px;
-		border-width: 1px 1px 0;
-		border-style: solid solid none;
-		border-color: #f1f1f1;
-		text-decoration: none;
-	}
-	#tabs a:hover {
-		color: #d54e21;
-	}
-	.wrap h2 {
-		border-bottom-color: #dfdfdf;
-		color: #555;
-		margin: 5px 0;
-		padding: 0;
-		font-size: 18px;
-	}
-	#user_info {
-		right: 5%;
-		top: 5px;
-	}
-	h3 {
-		font-size: 1.1em;
-		margin-top: 10px;
-		margin-bottom: 0px;
-	}
-	#flipper {
-		margin: 0;
-		padding: 5px 20px 10px;
-		background-color: #fff;
-		border-left: 1px solid #dfdfdf;
-		border-bottom: 1px solid #dfdfdf;
-	}
-	* html {
+    #wphead {
+        font-size: 80%;
+        border-top: 0;
+        color: #555;
+        background-color: #f1f1f1;
+    }
+    #wphead h1 {
+        font-size: 24px;
+        color: #555;
+        margin: 0;
+        padding: 10px;
+    }
+    #tabs {
+        padding: 15px 15px 3px;
+        background-color: #f1f1f1;
+        border-bottom: 1px solid #dfdfdf;
+    }
+    #tabs li {
+        display: inline;
+    }
+    #tabs a.current {
+        background-color: #fff;
+        border-color: #dfdfdf;
+        border-bottom-color: #fff;
+        color: #d54e21;
+    }
+    #tabs a {
+        color: #2583AD;
+        padding: 6px;
+        border-width: 1px 1px 0;
+        border-style: solid solid none;
+        border-color: #f1f1f1;
+        text-decoration: none;
+    }
+    #tabs a:hover {
+        color: #d54e21;
+    }
+    .wrap h2 {
+        border-bottom-color: #dfdfdf;
+        color: #555;
+        margin: 5px 0;
+        padding: 0;
+        font-size: 18px;
+    }
+    #user_info {
+        right: 5%;
+        top: 5px;
+    }
+    h3 {
+        font-size: 1.1em;
+        margin-top: 10px;
+        margin-bottom: 0px;
+    }
+    #flipper {
+        margin: 0;
+        padding: 5px 20px 10px;
+        background-color: #fff;
+        border-left: 1px solid #dfdfdf;
+        border-bottom: 1px solid #dfdfdf;
+    }
+    * html {
         overflow-x: hidden;
         overflow-y: scroll;
     }
-	#flipper div p {
-		margin-top: 0.4em;
-		margin-bottom: 0.8em;
-		text-align: justify;
-	}
-	th {
-		text-align: center;
-	}
-	.top th {
-		text-decoration: underline;
-	}
-	.top .key {
-		text-align: center;
-		width: 5em;
-	}
-	.top .action {
-		text-align: left;
-	}
-	.align {
-		border-left: 3px double #333;
-		border-right: 3px double #333;
-	}
-	.keys {
-		margin-bottom: 15px;
-	}
-	.keys p {
-		display: inline-block;
-		margin: 0px;
-		padding: 0px;
-	}
-	.keys .left { text-align: left; }
-	.keys .center { text-align: center; }
-	.keys .right { text-align: right; }
-	td b {
-		font-family: "Times New Roman" Times serif;
-	}
-	#buttoncontainer {
-		text-align: center;
-		margin-bottom: 20px;
-	}
-	#buttoncontainer a, #buttoncontainer a:hover {
-		border-bottom: 0px;
-	}
+    #flipper div p {
+        margin-top: 0.4em;
+        margin-bottom: 0.8em;
+        text-align: justify;
+    }
+    th {
+        text-align: center;
+    }
+    .top th {
+        text-decoration: underline;
+    }
+    .top .key {
+        text-align: center;
+        width: 5em;
+    }
+    .top .action {
+        text-align: left;
+    }
+    .align {
+        border-left: 3px double #333;
+        border-right: 3px double #333;
+    }
+    .keys {
+        margin-bottom: 15px;
+    }
+    .keys p {
+        display: inline-block;
+        margin: 0px;
+        padding: 0px;
+    }
+    .keys .left { text-align: left; }
+    .keys .center { text-align: center; }
+    .keys .right { text-align: right; }
+    td b {
+        font-family: "Times New Roman" Times serif;
+    }
+    #buttoncontainer {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    #buttoncontainer a, #buttoncontainer a:hover {
+        border-bottom: 0px;
+    }
         .hs-tinymce-pu-text{
             width:175px;
         }
 </style>
 <?php if ( is_rtl() ) : ?>
 <style type="text/css">
-	#wphead, #tabs {
-		padding-left: auto;
-		padding-right: 15px;
-	}
-	#flipper {
-		margin: 5px 0 3px 10px;
-	}
-	.keys .left, .top, .action { text-align: right; }
-	.keys .right { text-align: left; }
-	td b { font-family: Tahoma, "Times New Roman", Times, serif }
+    #wphead, #tabs {
+        padding-left: auto;
+        padding-right: 15px;
+    }
+    #flipper {
+        margin: 5px 0 3px 10px;
+    }
+    .keys .left, .top, .action { text-align: right; }
+    .keys .right { text-align: left; }
+    td b { font-family: Tahoma, "Times New Roman", Times, serif }
 </style>
 <?php endif; ?>
 <script type="text/javascript">
-	function d(id) { return document.getElementById(id); }
+    function d(id) { return document.getElementById(id); }
 
-	function flipTab(n) {
-		for (i=1;i<=4;i++) {
-			c = d('content'+i.toString());
-			t = d('tab'+i.toString());
+    function flipTab(n) {
+        for (i=1;i<=4;i++) {
+            c = d('content'+i.toString());
+            t = d('tab'+i.toString());
                         if(c != null){
                             if ( n == i ) {
                                     c.className = '';
@@ -173,8 +173,8 @@ wp_admin_css( 'wp-admin', true );
                                     t.className = '';
                             }
                         }
-		}
-	}
+        }
+    }
 </script>
 </head>
 <body>
@@ -189,11 +189,11 @@ $myhubspotusage->check_shortcode('Display shortcode popup');
 ?>
 
 <ul id="tabs">
-	<li><a id="tab1" href="javascript:flipTab(1)" title="<?php _e('Contact Info') ?>" accesskey="1" tabindex="1" class="current"><?php _e('Contact Info') ?></a></li>
-	<li><a id="tab2" href="javascript:flipTab(2)" title="<?php _e('Team List') ?>" accesskey="2" tabindex="2"><?php _e('Team List') ?></a></li>
-	<?php if($myhubspotwp_leads->hs_leads_enabled() && $myhubspotwp->hs_is_customer($hs_settings['hs_portal'], $hs_settings['hs_appdomain'])){?>
+    <li><a id="tab1" href="javascript:flipTab(1)" title="<?php _e('Contact Info') ?>" accesskey="1" tabindex="1" class="current"><?php _e('Contact Info') ?></a></li>
+    <li><a id="tab2" href="javascript:flipTab(2)" title="<?php _e('Team List') ?>" accesskey="2" tabindex="2"><?php _e('Team List') ?></a></li>
+    <?php if($myhubspotwp_leads->hs_leads_enabled() && $myhubspotwp->hs_is_customer($hs_settings['hs_portal'], $hs_settings['hs_appdomain'])){?>
         <li><a id="tab3" href="javascript:flipTab(3)" title="<?php _e('Custom Form') ?>" accesskey="3" tabindex="3"><?php _e('Custom Form') ?></a></li>
-	<?php } ?>
+    <?php } ?>
         <?php if($myhubspotwp_action->hs_actions_enabled()){ ?>
         <li><a id="tab4" href="javascript:flipTab(4)" title="<?php _e('Calls to Action') ?>" accesskey="4" tabindex="4"><?php _e('Calls to Action') ?></a></li>
         <?php } ?>
@@ -228,7 +228,7 @@ $myhubspotusage->check_shortcode('Display shortcode popup');
 </div>
 
 <div id="content2" class="hidden">
-	<h2><?php _e('Team List') ?></h2>
+    <h2><?php _e('Team List') ?></h2>
             <table class="form-table">
             <form onsubmit="HubSpotInsertTeamShortcode(<?php echo $hs_settings["hs_portal"]; ?>);return false" action="#" name="popup_form2">
                 <tr><th scope="row">Select which team members to include on this team page.</th>
@@ -239,7 +239,7 @@ $myhubspotusage->check_shortcode('Display shortcode popup');
                     $member_ID = $team_member->ID;
                     $userdata = get_userdata($member_ID);
                     ?>
-			<li class="ui-state-default"><label class="selectit" for="team-member-<?php echo $member_ID; ?>"><input type="checkbox" name="team_members" id ="team-member-<?php echo $member_ID; ?>" value="<?php echo $member_ID; ?>"/> <span><?php echo get_the_author_meta('display_name', $member_ID); ?></span></label></li> 
+            <li class="ui-state-default"><label class="selectit" for="team-member-<?php echo $member_ID; ?>"><input type="checkbox" name="team_members" id ="team-member-<?php echo $member_ID; ?>" value="<?php echo $member_ID; ?>"/> <span><?php echo get_the_author_meta('display_name', $member_ID); ?></span></label></li> 
                     <?php
                 }
                 ?>
@@ -255,7 +255,7 @@ $myhubspotusage->check_shortcode('Display shortcode popup');
 </div>
 <?php if($myhubspotwp_leads->hs_leads_enabled() && $myhubspotwp->hs_is_customer($hs_settings['hs_portal'], $hs_settings['hs_appdomain'])){?>
 <div id="content3" class="hidden">
-	<h2><?php _e('Custom Form') ?></h2>
+    <h2><?php _e('Custom Form') ?></h2>
                      <table class="form-table">
             <form onsubmit="HubSpotInsertFormShortcode(<?php echo $hs_settings["hs_portal"]; ?>);return false" action="#" name="popup_form3">
                 <tr><th scope="row">Select which custom form to include on this team page.</th>
@@ -284,22 +284,26 @@ $myhubspotusage->check_shortcode('Display shortcode popup');
             </form>
         </table>  
 </div>
-	<?php } ?>
+    <?php } ?>
         <?php if($myhubspotwp_action->hs_actions_enabled()){ ?>
 <div id="content4" class="hidden">
-	<h2><?php _e('Calls to Action'); ?></h2>
+    <h2><?php _e('Calls to Action'); ?></h2>
             <table class="form-table">
             <form onsubmit="HubSpotInsertActionShortcode(<?php echo $hs_settings["hs_portal"]; ?>);return false" action="#" name="popup_form4">
                 <tr><th scope="row">Select which Calls to Action you want to randomly rotate through.</th></tr>
                  <tr><td><ul>
                 <?php
                 $args = array('post_type' => 'hs-action', 'numberposts' => -1);
-                $hs_actions = get_posts($args);
-                foreach ($hs_actions as $hs_action) {
-                    setup_postdata($hs_action); ?>
-                    <li class="checkbox"><label class="selectit" for="hs-action-<?php _e($hs_action->ID); ?>"><input type="checkbox" name="hs_action" id ="hs-action-<?php _e($hs_action->ID); ?>" value="<?php _e($hs_action->ID); ?>"/> <span><?php _e($hs_action->post_title); ?></span></label></li>
-                    <?php
-                }
+                $hs_actions = new WP_Query($args);
+                global $post;
+                if($hs_actions->have_posts()):
+                    while ($hs_actions->have_posts()):
+                        $hs_actions->the_post(); ?>
+                        <li class="checkbox"><label class="selectit" for="hs-action-<?php _e($post->ID); ?>"><input type="checkbox" name="hs_action" id ="hs-action-<?php _e($post->ID); ?>" value="<?php _e($post->ID); ?>"/> <span><?php _e($post->post_title); ?></span></label></li>
+                        <?php
+                    endwhile;
+                endif;
+                wp_reset_query();
                 ?>
                 </ul></td></tr>
                 <tr><td scope="row">

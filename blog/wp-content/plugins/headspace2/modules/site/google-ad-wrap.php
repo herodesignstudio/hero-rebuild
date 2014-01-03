@@ -27,12 +27,12 @@ class HSS_GoogleAdWrap extends HS_SiteModule
 	{
 		return __ ('Google Section Targeting', 'headspace');
 	}
-	
+
 	function description ()
 	{
 		return __ ('Wraps all post and page content inside a Google targeted section', 'headspace');
 	}
-	
+
 	function google_ad_wrap ($text)
 	{
 		if ( !is_feed() )
@@ -47,11 +47,10 @@ class HSS_GoogleAdWrap extends HS_SiteModule
 		add_filter ('the_excerpt_reloaded', array (&$this, 'google_ad_wrap'));
 		add_filter ('comment_text', array (&$this, 'google_ad_wrap'));
 	}
-	
+
 	function file ()
 	{
 		return basename (__FILE__);
 	}
 }
 
-?>

@@ -27,29 +27,27 @@ class ImportSEOTitleTags extends HS_Importer
 	{
 		return __ ('SEO Title Tags', 'headspace');
 	}
-	
+
 	function import ()
 	{
 		$count = 0;
-		
+
 		global $wpdb;
 		$keywords = $wpdb->get_results ("SELECT * FROM {$wpdb->postmeta} WHERE meta_key='title_tag'");
 		if ($keywords)
 		{
 			foreach ($keywords AS $keyword)
 				MetaData::add_page_title( $keyword->post_id, $keyword->meta_value );
-			
+
 			$count += count ($keywords);
 		}
-		
+
 		return $count;
 	}
-	
+
 	function cleanup ()
 	{
 		global $wpdb;
 		$wpdb->query ("DELETE FROM {$wpdb->postmeta} WHERE meta_key='title_tag'");
 	}
 }
-
-?>

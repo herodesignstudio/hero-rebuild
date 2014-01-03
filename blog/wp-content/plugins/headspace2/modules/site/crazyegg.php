@@ -25,36 +25,36 @@ class HSS_CrazyEgg extends HS_SiteModule
 {
 	var $tracking        = '';
 	var $role            = 'everyone';
-	
+
 	var $trackable       = null;
-	
+
 	function name ()
 	{
 		return __ ('CrazyEgg', 'headspace');
 	}
-	
+
 	function description ()
 	{
 		return __ ('Adds CrazyEgg tracking code to all pages', 'headspace');
 	}
-	
+
 	function run ()
 	{
 		add_action ('wp_footer', array (&$this, 'wp_footer'));
 	}
-	
+
 	function is_trackable ()
 	{
 		if ($this->is_trackable !== null)
 			return $this->is_trackable;
-			
+
 		if (is_user_logged_in () && $this->role != 'everyone')
 		{
 			$user = wp_get_current_user ();
-			
+
 			global $wp_roles;
 			$caps = $wp_roles->get_role ($this->role);
-			
+
 			if ($caps)
 			{
 				// Calculate the highest level of the user and the role
@@ -64,7 +64,7 @@ class HSS_CrazyEgg extends HS_SiteModule
 					if (isset ($caps->capabilities['level_'.$x]))
 						break;
 				}
-			
+
 				$role_level = $x;
 
 				for ($x = 10; $x >= 0; $x--)
@@ -72,9 +72,9 @@ class HSS_CrazyEgg extends HS_SiteModule
 					if (isset ($user->allcaps['level_'.$x]))
 						break;
 				}
-			
+
 				$user_level = $x;
-			
+
 				// Quit if the user is greater level than the role
 				if ($user_level > $role_level)
 				{
@@ -83,40 +83,40 @@ class HSS_CrazyEgg extends HS_SiteModule
 				}
 			}
 		}
-		
+
 		$this->is_trackable = true;
 		return $this->is_trackable;
 	}
-	
+
 	function wp_footer ()
 	{
 		if ($this->tracking && $this->is_trackable ())
 			echo $this->tracking;
 	}
-	
+
 	function load ($data)
 	{
 		if (isset ($data['tracking']))
 			$this->tracking = $data['tracking'];
-			
+
 		if (isset ($data['role']))
 			$this->role = $data['role'];
 	}
-	
+
 	function has_config () { return true; }
-	
+
 	function save_options ($data)
 	{
 		return array ('tracking' => $data['tracking'], 'role' => $data['role']);
 	}
-	
+
 	function edit ()
 	{
 	?>
 	<tr>
 		<th width="150"><?php _e ('CrazyEgg ID', 'headspace'); ?>:</th>
 		<td>
-			<input type="text" name="tracking" value="<?php echo htmlspecialchars ($this->tracking); ?>"/>
+			<input type="text" name="tracking" value="<?php echo esc_attr ($this->tracking); ?>"/>
 			<span class="sub"><?php _e ('Enter your full <a href="http://crazyegg.com/pages/instructions">CrazyEgg code</a>', 'headspace'); ?>.</span>
 		</td>
 	</tr>
@@ -126,17 +126,17 @@ class HSS_CrazyEgg extends HS_SiteModule
 			<select name="role">
 				<option value="everyone"><?php _e ('Everyone', 'headspace'); ?></option>
 					<?php global $wp_roles; foreach ($wp_roles->role_names as $key => $rolename) : ?>
-						<option value="<?php echo $key ?>"<?php if ($this->role == $key) echo ' selected="selected"'; ?>><?php echo $rolename ?></option>
+						<option value="<?php echo $key ?>"<?php if ($this->role == $key) echo ' selected="selected"'; ?>><?php echo esc_html( $rolename ) ?></option>
 					<?php endforeach; ?>
 				</select>
 			</select>
-			
+
 			<span class="sub"><?php _e ('Users of the specified role or less will be tracked', 'headspace'); ?></span>
 		</td>
 	</tr>
 	<?php
 	}
-	
+
 	function file ()
 	{
 		return basename (__FILE__);

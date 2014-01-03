@@ -409,4 +409,3 @@ class HS_PorterStemmer
                AND $matches[1]{2} != 'y';
     }
 }
-?>

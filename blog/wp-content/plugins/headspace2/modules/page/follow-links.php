@@ -25,7 +25,7 @@ class HSM_FollowLinks extends HSM_Module
 {
 	var $rss_feed = 'default';
 	var $links = array ();
-	
+
 	function names () {
 		return array
 		(
@@ -47,18 +47,18 @@ class HSM_FollowLinks extends HSM_Module
 				$this->links = unserialize ($this->links);
 		}
 	}
-	
+
 	function head () {
 		if (count ($this->links) > 0) {
 			foreach ($this->links AS $filter => $follow) {
 				if ($filter != 'next_posts_link_attributes' )
 					add_filter ($filter, array (&$this, 'filter_'.$follow));
 			}
-				
+
 			// Catch synonymns
 			if (isset ($this->links['term_links-post_tag']))
 				add_filter ('wp_tag_cloud', array (&$this, 'filter_'.$this->links['term_links-post_tag']));
-				
+
 			// Catch previous posts links
 			if (isset ($this->links['next_posts_link_attributes'])) {
 				add_filter( 'prev_posts_link_attributes', array(&$this, $this->links['next_posts_link_attributes'].'_next_posts_link_attributes'));
@@ -66,10 +66,10 @@ class HSM_FollowLinks extends HSM_Module
 			}
 		}
 	}
-	
+
 	function insert_rel ($matches, $follow) {
 		$rel = array ();
-		
+
 		if (preg_match ('/rel=["\'](.*?)["\']/', $matches[1], $existing) > 0) {
 			$rel = array_unique (array_merge ($rel, explode (' ', $existing[1])));
 			$rel = array_diff ($rel, array ('follow', 'nofollow'));
@@ -77,18 +77,18 @@ class HSM_FollowLinks extends HSM_Module
 		}
 
 		$rel[] = $follow;
-		
+
 		return '<a rel="'.implode (' ', $rel).'"'.$matches[1].'>';
 	}
-	
+
 	function insert_nofollow ($matches) {
 		return $this->insert_rel ($matches, 'nofollow');
 	}
-	
+
 	function insert_follow ($matches) {
 		return $this->insert_rel ($matches, '');
 	}
-	
+
 	function follow_next_posts_link_attributes($attr) {
 		return 'rel="follow"';
 	}
@@ -96,23 +96,23 @@ class HSM_FollowLinks extends HSM_Module
 	function nofollow_next_posts_link_attributes($attr) {
 		return 'rel="nofollow"';
 	}
-	
+
 	function filter_follow ($text) {
 		return preg_replace_callback ('@<a(.*?)>@', array (&$this, 'insert_follow'), $text);
 	}
-	
+
 	function filter_nofollow ($text) {
 		return preg_replace_callback ('@<a(.*?)>@', array (&$this, 'insert_nofollow'), $text);
 	}
-	
+
 	function name () {
 		return __ ('Follow Links', 'headspace');
 	}
-	
+
 	function description () {
 		return __ ('Allows follow/no-follow to be set for various links', 'headspace');
 	}
-	
+
 	function edit ($width, $area) {
 		foreach ($this->names () AS $key => $value) : ?>
 	<tr>
@@ -125,29 +125,29 @@ class HSM_FollowLinks extends HSM_Module
 	</tr>
 <?php endforeach;
 	}
-	
+
 	function checked ($key, $setting) {
 		if ((isset ($this->links[$key]) && $this->links[$key] == $setting) || (!isset ($this->links[$key]) && $setting == 'default'))
 			echo ' checked="checked"';
 	}
-	
+
 	function remove_default_filter ($item) {
 		if ($item == 'default')
 			return false;
 		return true;
 	}
-	
+
 	function save ($data, $area) {
 		// Remove default
 		$links = array();
 		if ( isset($data['headspace_follow_link']))
 			$links = array_filter ((array)$data['headspace_follow_link'], array (&$this, 'remove_default_filter'));
-		
+
 		if (count ($links) > 0)
 			return array ('follow_link' => serialize ($links));
 		return array ('follows_links' => array ());
 	}
-	
+
 	function file () {
 		return basename (__FILE__);
 	}

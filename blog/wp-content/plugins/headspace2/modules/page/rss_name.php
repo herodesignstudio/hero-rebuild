@@ -24,23 +24,23 @@ For full license details see license.txt
 class HSM_RssName extends HSM_Module
 {
 	var $rss_title;
-	
+
 	function run () {
 		add_filter ('get_wp_title_rss', array (&$this, 'get_wp_title_rss'));
 	}
-	
+
 	function load ($meta = '') {
 		if (isset ($meta['rss_title']))
 			$this->rss_title = $meta['rss_title'];
 	}
-	
-	
+
+
 	/**
 	 * Insert re-configured blog name and description into the RSS feed
 	 *
 	 * @return void
 	 **/
-	
+
 	function get_wp_title_rss ($show) {
 		HeadSpace2::reload ($this);
 
@@ -48,38 +48,37 @@ class HSM_RssName extends HSM_Module
 			return $this->rss_title;
 		return $show;
 	}
-	
+
 	function name () {
 		return __ ('RSS Name', 'headspace');
 	}
-	
+
 	function description () {
 		return __ ('Allows site RSS name to be changed', 'headspace');
 	}
-	
+
 	function is_restricted ($area) {
 		if (current_user_can ('administrator') && in_array ($area, array ('category', 'global', 'author', 'home', 'archive')))
 			return false;
 		return true;
 	}
-	
+
 	function edit ($width, $area) {
 ?>
 <tr>
 	<th width="<?php echo $width ?>" align="right"><?php _e ('RSS Name', 'headspace') ?>:</th>
 	<td>
-		<input type="text" name="headspace_rss_title" value="<?php echo htmlspecialchars ($this->rss_title) ?>" style="width: 95%"/>
+		<input type="text" name="headspace_rss_title" value="<?php echo esc_attr ($this->rss_title) ?>" style="width: 95%"/>
 	</td>
 </tr>
 <?php
 	}
-	
+
 	function save ($data, $area) {
 		return array ('rss_title' => $data['headspace_rss_title']);
 	}
-	
+
 	function file () {
 		return basename (__FILE__);
 	}
 }
-?>

@@ -27,9 +27,9 @@ class HSM_RelativeLinks extends HSM_Module {
 	var $rellink_parent = '';
 	var $rellink_start  = '';
 	var $rellink_end    = '';
-	
+
 	var $reloaded = false;
-	
+
 	function load ($data) {
 		if ( isset( $data['rellink_next'] ) )
 			$this->rellink_next = $data['rellink_next'];
@@ -46,7 +46,7 @@ class HSM_RelativeLinks extends HSM_Module {
 		if ( isset( $data['rellink_end'] ) )
 			$this->rellink_end = $data['rellink_end'];
 	}
-	
+
 	function run() {
 		add_filter( 'parent_post_rel_link', array( &$this, 'parent_post_rel_link' ) );
 		add_filter( 'start_post_rel_link', array( &$this, 'start_post_rel_link' ) );
@@ -54,7 +54,7 @@ class HSM_RelativeLinks extends HSM_Module {
 		add_filter( 'next_post_rel_link', array( &$this, 'next_post_rel_link' ) );
 		add_filter( 'previous_post_rel_link', array( &$this, 'prev_post_rel_link' ) );
 	}
-	
+
 	function do_link( $link, $var ) {
 		if ( $this->reloaded == false )
 			HeadSpace2::reload ($this);
@@ -68,10 +68,10 @@ class HSM_RelativeLinks extends HSM_Module {
 				$link = preg_replace( "/title='(.*?)'/", 'title="'.$post->post_title.'"', $link );
 			}
 		}
-		
+
 		return $link;
 	}
-	
+
 	function parent_post_rel_link( $link ) {
 		return $this->do_link( $link, 'rellink_parent' );
 	}
@@ -91,15 +91,15 @@ class HSM_RelativeLinks extends HSM_Module {
 	function prev_post_rel_link( $link ) {
 		return $this->do_link( $link, 'rellink_prev' );
 	}
-	
+
 	function name () {
 		return __ ('Relative Links', 'headspace');
 	}
-	
+
 	function description () {
 		return __ ('Allows options to be set for relative meta links (WP 2.8+)', 'headspace');
 	}
-	
+
 	function edit ($width, $area) {
 ?>
 	<tr>
@@ -107,33 +107,33 @@ class HSM_RelativeLinks extends HSM_Module {
 		<td>
 			<label>
 				<small><?php _e( 'Previous', 'headspace' )?>:</small>
-				<input size="5" type="text" name="headspace_rellink_prev" value="<?php echo htmlspecialchars( $this->rellink_prev ); ?>"/>
+				<input size="5" type="text" name="headspace_rellink_prev" value="<?php echo esc_attr( $this->rellink_prev ); ?>"/>
 			</label>
-			
+
 			<label>
 				<small><?php _e( 'Next', 'headspace' )?>:</small>
-				<input size="5" type="text" name="headspace_rellink_next" value="<?php echo htmlspecialchars( $this->rellink_next ); ?>"/>
+				<input size="5" type="text" name="headspace_rellink_next" value="<?php echo esc_attr( $this->rellink_next ); ?>"/>
 			</label>
-			
+
 			<label>
 				<small><?php _e( 'Start', 'headspace' )?>:</small>
-				<input size="5" type="text" name="headspace_rellink_start" value="<?php echo htmlspecialchars( $this->rellink_start ); ?>"/>
+				<input size="5" type="text" name="headspace_rellink_start" value="<?php echo esc_attr( $this->rellink_start ); ?>"/>
 			</label>
 
 			<label>
 				<small><?php _e( 'End', 'headspace' )?>:</small>
-				<input size="5" type="text" name="headspace_rellink_end" value="<?php echo htmlspecialchars( $this->rellink_end ); ?>"/>
+				<input size="5" type="text" name="headspace_rellink_end" value="<?php echo esc_attr( $this->rellink_end ); ?>"/>
 			</label>
 
 			<label>
 				<small><?php _e( 'Parent', 'headspace' )?>:</small>
-				<input size="5" type="text" name="headspace_rellink_parent" value="<?php echo htmlspecialchars( $this->rellink_parent ); ?>"/>
+				<input size="5" type="text" name="headspace_rellink_parent" value="<?php echo esc_attr( $this->rellink_parent ); ?>"/>
 			</label>
 		</td>
 	</tr>
 <?php
 	}
-	
+
 	function save ($data, $area) {
 		return array(
 			'rellink_prev'   => intval( $data['headspace_rellink_prev'] ),
@@ -143,7 +143,7 @@ class HSM_RelativeLinks extends HSM_Module {
 			'rellink_parent' => intval( $data['headspace_rellink_parent'] ),
 		);
 	}
-	
+
 	function file () {
 		return basename (__FILE__);
 	}

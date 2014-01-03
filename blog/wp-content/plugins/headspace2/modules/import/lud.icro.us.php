@@ -27,29 +27,27 @@ class ImportHeadMetaLudicrous extends HS_Importer
 	{
 		return __ ('lud.icro.us HeadMeta', 'headspace');
 	}
-	
+
 	function import ()
 	{
 		$count = 0;
-		
+
 		global $wpdb;
 		$values = $wpdb->get_results ("SELECT * FROM {$wpdb->postmeta} WHERE meta_key='head-meta'");
 		if ($values)
 		{
 			foreach ($values AS $value)
 				MetaData::add_raw ($value->post_id, $value->meta_value);
-			
+
 			$count += count ($values);
 		}
-		
+
 		return $count;
 	}
-	
+
 	function cleanup ()
 	{
 		global $wpdb;
 		$wpdb->query ("DELETE FROM {$wpdb->postmeta} WHERE meta_key='head-meta'");
 	}
 }
-
-?>

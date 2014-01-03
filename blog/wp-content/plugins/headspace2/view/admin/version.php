@@ -2,7 +2,7 @@
 	<h3><?php _e ('HeadSpace2 News', 'headspace'); ?></h3>
 
 	<?php foreach ($rss->items AS $item) : ?>
-		<h4><a href='<?php echo wp_filter_kses($item['link']); ?>'><?php echo wp_specialchars($item['title']); ?></a> &#8212; <?php printf(__('%s ago'), human_time_diff(strtotime($item['pubdate'], time() ) ) ); ?></h4>
-		<p><?php echo $item['description']; ?></p>
+		<h4><a href='<?php echo wp_filter_kses($item['link']); ?>'><?php echo esc_html($item['title']); ?></a> &#8212; <?php printf(__('%s ago'), human_time_diff(strtotime($item['pubdate'], time() ) ) ); ?></h4>
+		<p><?php echo esc_html( $item['description'] ); ?></p>
 	<?php endforeach; ?>
 </div>

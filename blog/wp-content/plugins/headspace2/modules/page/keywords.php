@@ -26,46 +26,46 @@ class HSM_Keywords extends HSM_Module
 	var $metakey    = null;
 	var $use_tags   = true;
 	var $max_length = 0;
-	
+
 	function HSM_Keywords ($options = array ()) {
 		if ( isset( $options['use_tags'] ) )
 			$this->use_tags = $options['use_tags'] ? true : false;
-			
+
 		if ( isset( $options['max_length'] ) )
 			$this->max_length = $options['max_length'];
 	}
-	
+
 	function load ($data) {
 		if ((!$this->use_tags || !class_exists ('HSM_Tags')) && isset( $data['metakey']) )
 			$this->metakey = $data['metakey'];
 	}
-	
+
 	function head () {
 		if ($this->use_tags && class_exists ('HSM_Tags') && $this->metakey == '') {
 			$hs = HeadSpace2::get ();
 			$tags = $hs->modules->get ('hsm_tags');
-			
+
 			$this->metakey = $tags->normalize_tags ($tags->get_the_tags ());
 		}
 
 		if ($this->metakey)
 		  echo '<meta name="keywords" content="'.$this->metakey.'" />'."\r\n";
 	}
-	
+
 	function can_quick_edit () { return true; }
-	
+
 	function quick_view () {
 		echo $this->metakey;
 	}
-	
+
 	function name () {
 		return __ ('Keywords', 'headspace');
 	}
-	
+
 	function description () {
 		return __ ('Allows meta keywords to be defined, seperate from tags (if necessary, disable keyword display in the Tags module)', 'headspace');
 	}
-	
+
 	function has_config () { return true; }
 
 	function edit_options () {
@@ -86,7 +86,7 @@ class HSM_Keywords extends HSM_Module
 		</tr>
 		<?php
 	}
-	
+
 	function save_options ($data) {
 		return array
 		(
@@ -110,8 +110,8 @@ class HSM_Keywords extends HSM_Module
 		<?php endif; ?>
 	</th>
 	<td>
-		<input type="text" name="headspace_metakey" style="width: 95%" value="<?php echo htmlspecialchars ($this->metakey) ?>" id="keywords_<?php echo $id; ?>"/>
-		
+		<input type="text" name="headspace_metakey" style="width: 95%" value="<?php echo esc_attr ($this->metakey) ?>" id="keywords_<?php echo $id; ?>"/>
+
 		<script type="text/javascript" charset="utf-8">
 			jQuery('#keywords_<?php echo $id ?>').Counter( { limit: <?php echo $this->max_length; ?>, remaining: '<?php echo esc_js( __( 'remaining', 'headspace' ) )?>' } );
 		</script>
@@ -120,13 +120,13 @@ class HSM_Keywords extends HSM_Module
 <?php
 		}
 	}
-	
+
 	function save ($data, $area) {
 		if (isset($data['headspace_metakey']))
 			return array ('metakey' => $data['headspace_metakey']);
 		return array();
 	}
-	
+
 	function file () {
 		return basename (__FILE__);
 	}

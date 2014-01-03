@@ -1,12 +1,14 @@
 <?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><div class="option">
-	<img style="display: none" src="<?php echo $this->url () ?>/images/progress.gif" width="50" height="16" alt="Progress" class="load" />
-	
+	<img style="display: none" src="<?php echo plugins_url( '/images/progress.gif', $this->base_url() ); ?>" width="50" height="16" alt="Progress" class="load" />
+
 	<?php if ($module->has_config ()) : ?>
-	<a href="<?php echo admin_url( 'admin-ajax.php' ) ?>?action=hs_site_edit&amp;module=<?php echo $module->id(); ?>" class="edit"><img src="<?php echo $this->url () ?>/images/edit.png" width="16" height="16" alt="Edit"/></a>
+	<a href="<?php echo admin_url( 'admin-ajax.php' ) ?>?action=hs_site_edit&amp;module=<?php echo $module->id(); ?>" class="edit">
+		<img src="<?php echo plugins_url( '/images/edit.png', $this->base_url() ); ?>" width="16" height="16" alt="Edit"/>
+	</a>
 	<?php endif; ?>
-	
+
 	<a href="#help" class="help">
-		<img src="<?php echo $this->url () ?>/images/help.png" width="16" height="16" alt="Help"/>
+		<img src="<?php echo plugins_url( '/images/help.png', $this->base_url() ); ?>" width="16" height="16" alt="Help"/>
 	</a>
 </div>
 

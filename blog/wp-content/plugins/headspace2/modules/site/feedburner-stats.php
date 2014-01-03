@@ -24,17 +24,17 @@ For full license details see license.txt
 class HSS_FeedburnerStats extends HS_SiteModule
 {
 	var $account = '';
-	
+
 	function name ()
 	{
 		return __ ('Feedburner Stats Pro', 'headspace');
 	}
-	
+
 	function description ()
 	{
 		return __ ('Adds appropriate code to your posts to enable FeedBurner Stats Pro', 'headspace');
 	}
-	
+
 	function burn ($text)
 	{
 		return $text.'<script src="http://feeds.feedburner.com/~s/'.$this->account.'?i='.get_permalink ().'" type="text/javascript" charset="utf-8"></script>';
@@ -46,33 +46,33 @@ class HSS_FeedburnerStats extends HS_SiteModule
 		add_filter ('the_excerpt', array (&$this, 'burn'));
 		add_filter ('the_excerpt_reloaded', array (&$this, 'burn'));
 	}
-	
+
 	function load ($data)
 	{
 		if (isset ($data['account']))
 			$this->account = $data['account'];
 	}
-	
+
 	function has_config () { return true; }
-	
+
 	function save_options ($data)
 	{
 		return array ('account' => $data['account']);
 	}
-	
+
 	function edit ()
 	{
 	?>
 	<tr>
 		<th width="150"><?php _e ('Account ID', 'headspace'); ?>:</th>
 		<td>
-			<input type="text" name="account" value="<?php echo htmlspecialchars ($this->account); ?>"/><br/>
+			<input type="text" name="account" value="<?php echo esc_attr ($this->account); ?>"/><br/>
 			<span class="sub"><?php _e ('This is your FeedBurner username', 'headspace'); ?></span>
 		</td>
 	</tr>
 	<?php
 	}
-	
+
 	function file ()
 	{
 		return basename (__FILE__);

@@ -28,30 +28,30 @@ class HS_SiteModule
 	function HS_SiteModule() {}
 	function id() { return strtolower (get_class ($this)); }
 	function run() { }
-	
+
 	function config($options) { }
 	function load($meta = '') { }
 	function has_config() { return false; }
 	function plugins_loaded() {}
 	function is_active() { return $this->active; }
-	
+
 	function save_options($data) { return array (); }
 	function edit_options() {}
-	
+
 	function head() {}
-	
-	
+
+
 	function update($data) {
 		$data = $this->save_options ($data);
-		
+
 		if (!empty ($data)) {
 			$options = get_option ('headspace_options');
-			
+
 			$options['site'][$this->id ()] = $data;
 			update_option ('headspace_options', $options);
 			return true;
 		}
-		
+
 		return false;
 	}
 }
@@ -61,7 +61,7 @@ class HS_SiteManager
 {
 	var $modules = array ();
 	var $active  = array ();
-	
+
 	function HS_SiteManager($active) {
 		// Load all available module files
 		$available = get_declared_classes ();
@@ -79,9 +79,9 @@ class HS_SiteManager
 					include_once (dirname (__FILE__)."/../modules/site/$file");
 			}
 		}
-		
+
 		$available = array_diff (get_declared_classes (), $available);
-		
+
 		if (count ($available) > 0) {
 			$options = get_option ('headspace_options');
 			foreach ($available AS $pos => $name) {
@@ -92,13 +92,13 @@ class HS_SiteManager
 
 				if (in_array ($name, $active))
 					$module->active = true;
-					
+
 				$this->modules[$name] = $module;
 			}
-			
+
 			ksort ($this->modules);
 		}
-		
+
 		// Run through active modules and start them
 		if (count ($active) > 0) {
 			foreach ($active AS $name) {
@@ -109,13 +109,13 @@ class HS_SiteManager
 			}
 		}
 	}
-	
+
 	function get($id) {
 		if (isset ($this->modules[$id]))
 			return $this->modules[$id];
 		return false;
 	}
-	
+
 	function get_active() {
 		return $this->active;
 	}

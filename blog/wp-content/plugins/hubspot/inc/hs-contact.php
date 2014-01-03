@@ -111,7 +111,7 @@ class WPHubspotContact {
         }
 
         $mapscript = '<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?hl=en&amp;q=' . urlencode($addressquery) . '&amp;t=h&amp;z=14&amp;iwloc=A&amp;output=embed"></iframe>
-		<br /><small><a href="http://maps.google.com/maps?hl=en&amp;q=' . urlencode($addressquery) . '&amp;t=h&amp;z=14&amp;iwloc=A&amp;" style="color:#0000FF;text-align:left">View Larger Map</a></small>';
+        <br /><small><a href="http://maps.google.com/maps?hl=en&amp;q=' . urlencode($addressquery) . '&amp;t=h&amp;z=14&amp;iwloc=A&amp;" style="color:#0000FF;text-align:left">View Larger Map</a></small>';
         return $mapscript;
     }
 

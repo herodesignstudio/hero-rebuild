@@ -5,7 +5,6 @@
  *
  * @package HeadSpace
  * @author John Godley
- * @copyright Copyright (C) John Godley
  **/
 
 /*
@@ -30,10 +29,10 @@ class HeadSpace2 extends HeadSpace_Plugin
 	var $modules  = null;
 	var $site     = null;
 	var $disabled = false;
-	
+
 	function HeadSpace2() {
 		$this->register_plugin( 'headspace', dirname ( __FILE__ ) );
-		
+
 		// Load active modules
 		$this->modules = new HSM_ModuleManager ($this->get_active_modules ());
 		$this->site    = new HS_SiteManager ($this->get_site_modules ());
@@ -42,7 +41,7 @@ class HeadSpace2 extends HeadSpace_Plugin
 		$this->add_action ('wp_head');
 		$this->add_action ('headspace_wp_head', 'wp_head');   // For custom themes
 		$this->add_action ('login_head', 'wp_head');
-		
+
 		// 'plugins_loaded' seems to cause problem on non-english sites for 2.7
 		$this->add_action ('init', 'plugins_loaded');
 	}
@@ -51,12 +50,12 @@ class HeadSpace2 extends HeadSpace_Plugin
 		$options = $this->get_options ();
 		return $options['simple_modules'];
 	}
-	
+
 	function get_advanced_modules() {
 		$options = $this->get_options ();
 		return $options['advanced_modules'];
 	}
-	
+
 	function get_site_modules() {
 		$options = get_option ('headspace_options');
 		if ($options === false)
@@ -66,11 +65,11 @@ class HeadSpace2 extends HeadSpace_Plugin
 			$options['site_modules'] = array ();
 		return $options['site_modules'];
 	}
-	
+
 	function get_active_modules() {
 		return array_merge ($this->get_simple_modules (), $this->get_advanced_modules ());
 	}
-	
+
 	function get_options() {
 		$options = get_option ('headspace_options');
 		if ($options === false)
@@ -81,12 +80,12 @@ class HeadSpace2 extends HeadSpace_Plugin
 
 		if (!isset ($options['advanced_modules']))
 			$options['advanced_modules'] = array ('javascript.php' => 'hsm_javascript', 'stylesheet.php' => 'hsm_stylesheet');
-		
+
 		if (!isset ($options['inherit']))
 			$options['inherit'] = true;
 		return $options;
 	}
-	
+
 	function get_types() {
 
 		// Standard types
@@ -95,7 +94,7 @@ class HeadSpace2 extends HeadSpace_Plugin
 			'home'       => array (__ ('Home Page', 'headspace'), __ ('applied to the home page (or blog page)', 'headspace')),
 			'front'      => array (__ ('Front Page', 'headspace'), __('applied to front page (if you have set WordPress to use a static page)', 'headspace')),
 			'taxonomy'   => array (__ ('Taxonomy Archives', 'headspace'), __ ('applied when viewing a taxonomy archive', 'headspace')));
-		
+
 		// get taxonomy types
 		$all_taxonomies = get_object_taxonomies('post');
 
@@ -125,10 +124,10 @@ class HeadSpace2 extends HeadSpace_Plugin
 		return $types;
 
 	}
-	
+
 	function extract_module_settings($data, $area) {
 		$data = stripslashes_deep ($data);
-		
+
 		$modules = $this->modules->get_restricted ($this->get_simple_modules (), array (), $area);
 		$modules = array_merge ($modules, $this->modules->get_restricted ($this->get_advanced_modules (), array (), $area));
 
@@ -146,8 +145,8 @@ class HeadSpace2 extends HeadSpace_Plugin
 
 		if ($this->disabled == true)
 			return array ();				// This is useful for when we call a filter to prevent infinite loops
-		
-		$meta = array ();	
+
+		$meta = array ();
 		if ($override)
 			$meta[] = $override;
 		else if (is_admin ())
@@ -162,12 +161,12 @@ class HeadSpace2 extends HeadSpace_Plugin
 			if (is_single () || is_page () || ((is_front_page() || is_home() || is_archive() || is_search()) && in_the_loop()) ) {
 				if (is_attachment ())
 					$meta[] = get_option ('headspace_attachment');
-				
+
 				if (is_page ())
 					$meta[] = get_option ('headspace_page');
 				else
 					$meta[] = get_option ('headspace_post');
-					
+
 				if (!empty ($post->ID))
 					$meta[] = $this->get_post_settings ($post->ID);
 			}
@@ -218,7 +217,7 @@ class HeadSpace2 extends HeadSpace_Plugin
 		$options = $this->get_options ();
 		if ($options['inherit'] !== true && count ($meta) > 1)
 			$meta = array ($meta[count ($meta) - 1]);
-		
+
 		// Merge the settings together
 		$merged = array ();
 		foreach ($meta AS $item) {
@@ -237,17 +236,17 @@ class HeadSpace2 extends HeadSpace_Plugin
 				foreach ($meta AS $key => $value)
 					$meta[$key] = HS_InlineTags::replace ($value, $post);
 			}
-			
+
 			$meta = array_filter ($meta);
 		}
 
 		$this->meta = $meta;
 		return $this->meta;
 	}
-	
+
 	function get_post_settings( $id ) {
 		$meta = array();
-		
+
 		if ( $id > 0 ) {
 			$custom = get_post_custom( $id );
 
@@ -259,7 +258,7 @@ class HeadSpace2 extends HeadSpace_Plugin
 						$meta[$field] = $value;
 					}
 				}
-			
+
 				// Flatten any arrays with one element
 				foreach ( $meta AS $field => $value ) {
 					if ( is_array( $value ) && count( $value ) == 1 )
@@ -267,10 +266,10 @@ class HeadSpace2 extends HeadSpace_Plugin
 				}
 			}
 		}
-		
+
 		return $meta;
 	}
-	
+
 	function save_post_settings( $postid, $settings ) {
 		global $wpdb;
 
@@ -292,7 +291,7 @@ class HeadSpace2 extends HeadSpace_Plugin
 			}
 		}
 	}
-	
+
 	function reload(&$obj) {
 		$headspace = HeadSpace2::get ();
 		$obj->load ($headspace->get_current_settings ());
@@ -309,10 +308,10 @@ class HeadSpace2 extends HeadSpace_Plugin
 				$module->head ();
 			}
 		}
-		
+
 		echo "<!-- HeadSpace -->\n";
 	}
-	
+
 	function plugins_loaded() {
 		$modules = array_merge ($this->site->get_active (), $this->modules->get_active ($this->get_current_settings ()));
 
@@ -328,7 +327,7 @@ class HeadSpace2 extends HeadSpace_Plugin
 		echo $text;
 		echo '</pre>';
 	}
-	
+
 	function &get () {
     static $instance;
 
