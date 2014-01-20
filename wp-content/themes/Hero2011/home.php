@@ -7,7 +7,7 @@
             	<div class="homeSS">
                 
                     <div class="redBg">
-                    	<h1>[testing ftploy again] Hero is a digitally driven design studio &amp; marketing agency. We pair smart design with marketing strategies <br />to build your brand, generate leads and increase sales. <br /><a href="/herodesignstudio.com/our-work/">Let&rsquo;s do this!</a> <img src="<?php bloginfo('stylesheet_directory'); ?>/images/hero-rocket.gif" width="25" height="36" align="absbottom" /></h1>
+                    	<h1>[testing ftploy] Hero is a digitally driven design studio &amp; marketing agency. We pair smart design with marketing strategies <br />to build your brand, generate leads and increase sales. <br /><a href="/herodesignstudio.com/our-work/">Let&rsquo;s do this!</a> <img src="<?php bloginfo('stylesheet_directory'); ?>/images/hero-rocket.gif" width="25" height="36" align="absbottom" /></h1>
                     </div>
 					<div class="hubCTA">
                     
