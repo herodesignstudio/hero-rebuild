@@ -16,13 +16,13 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'herodesign');
+define('DB_NAME', 'herodesi_hero-rebuild');
 
 /** MySQL database username */
-define('DB_USER', 'root');
+define('DB_USER', 'herodesi_dev');
 
 /** MySQL database password */
-define('DB_PASSWORD', 'root');
+define('DB_PASSWORD', 'hero(3)');
 
 /** MySQL hostname */
 define('DB_HOST', 'localhost');
